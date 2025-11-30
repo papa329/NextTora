@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Johnson - Entrepreneur & Digital Innovator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .sticky-header {
+            transition: all 0.3s ease;
+        }
+        .menu-open {
+            max-height: 500px !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-transparent sticky-header">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#home" class="text-2xl font-bold text-white transition-colors">
+                    Venture<span class="text-blue-400">Build</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-medium text-white hover:text-blue-400 transition-colors">Accueil</a>
+                    <a href="#about" class="font-medium text-white hover:text-blue-400 transition-colors">À propos</a>
+                    <a href="#services" class="font-medium text-white hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#portfolio" class="font-medium text-white hover:text-blue-400 transition-colors">Portfolio</a>
+                    <a href="#testimonials" class="font-medium text-white hover:text-blue-400 transition-colors">Témoignages</a>
+                    <a href="#contact" class="font-medium text-white hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuButton" class="md:hidden p-2 rounded-lg text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="md:hidden mt-4 py-4 bg-white/95 backdrop-blur-md rounded-lg shadow-lg max-h-0 opacity-0 overflow-hidden transition-all duration-300">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">Accueil</a>
+                    <a href="#about" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">À propos</a>
+                    <a href="#services" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">Services</a>
+                    <a href="#portfolio" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">Portfolio</a>
+                    <a href="#testimonials" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">Témoignages</a>
+                    <a href="#contact" class="px-4 py-2 text-gray-700 font-medium hover:text-blue-600 transition-colors">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 50px 50px;"></div>
+        
+        <div class="container mx-auto px-6 h-full flex items-center pt-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Profile Image -->
+                <div class="mb-8">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-blue-600 to-yellow-500 p-1">
+                        <div class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-white text-2xl font-bold">
+                            AJ
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    Alex <span class="text-yellow-500">Johnson</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl mb-8 text-blue-200">
+                    Entrepreneur & Innovateur Digital
+                </p>
+
+                <p class="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+                    Je construis le futur grâce à des solutions digitales innovantes et un développement stratégique. 
+                    Je transforme les idées en entreprises prospères avec un focus sur la durabilité et la croissance.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#portfolio" class="group bg-yellow-500 text-gray-900 px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105">
+                        Voir mes projets
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                    
+                    <a href="#contact" class="group border-2 border-white text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-white hover:text-gray-900 transition-all duration-300">
+                        Me contacter
+                        <span class="group-hover:translate-x-1 transition-transform">▶</span>
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-500 mb-2">50+</div>
+                        <div class="text-blue-200">Projets réalisés</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-500 mb-2">12+</div>
+                        <div class="text-blue-200">Années d'expérience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-500 mb-2">98%</div>
+                        <div class="text-blue-200">Satisfaction client</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 fade-in">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                        À Propos
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Entrepreneur passionné avec plus de dix ans d'expérience dans la création d'entreprises digitales prospères
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Content -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                            Construire le Futur, Une Entreprise à la Fois
+                        </h3>
+                        
+                        <div class="space-y-4 text-gray-600">
+                            <p>
+                                Avec 12+ ans dans le paysage digital, j'ai consacré ma carrière à transformer 
+                                des idées innovantes en entreprises prospères. Mon parcours a commencé dans une petite startup 
+                                et a évolué vers la direction de plusieurs entreprises à sept chiffres.
+                            </p>
+                            
+                            <p>
+                                Je crois au pouvoir de la technologie pour résoudre des problèmes réels et créer 
+                                un impact significatif. Mon approche combine la pensée stratégique avec l'exécution 
+                                créative, garantissant que chaque projet délivre à la fois de la valeur business et du plaisir utilisateur.
+                            </p>
+
+                            <p>
+                                Quand je ne construis pas d'entreprises, vous me trouverez en train de mentorner des entrepreneurs, 
+                                de parler dans des conférences et de contribuer à des projets open-source qui font avancer l'innovation digitale.
+                            </p>
+                        </div>
+
+                        <!-- Skills -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-4">Compétences Clés</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Stratégie d'entreprise</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Marketing Digital</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Développement Produit</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Leadership d'équipe</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Planification Financière</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-600">✓</span>
+                                    <span class="text-gray-700">Analyse de Marché</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Values -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-600/10 p-3 rounded-lg">
+                                    <span class="text-blue-600 text-2xl">💡</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                                        Innovation
+                                    </h4>
+                                    <p class="text-gray-600">
+                                        Repousser constamment les limites et explorer de nouvelles possibilités dans chaque projet.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-600/10 p-3 rounded-lg">
+                                    <span class="text-blue-600 text-2xl">❤</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                                        Passion
+                                    </h4>
+                                    <p class="text-gray-600">
+                                        Motivé par un enthousiasme authentique pour créer des solutions significatives et impactantes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-600/10 p-3 rounded-lg">
+                                    <span class="text-blue-600 text-2xl">🌍</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                                        Durabilité
+                                    </h4>
+                                    <p class="text-gray-600">
+                                        Construire des entreprises qui contribuent positivement à la société et à l'environnement.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white fade-in">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Services
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Solutions digitales complètes pour transformer votre entreprise et générer une croissance durable
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-gray-50 rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="bg-blue-600/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="text-blue-600 text-2xl">🚀</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        Stratégie d'Entreprise
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Planification business complète et stratégies de croissance adaptées à votre vision et aux opportunités du marché.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Analyse de Marché
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Modélisation Business
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Plan de Croissance
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-gray-50 rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="bg-blue-600/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="text-blue-600 text-2xl">&lt;/&gt;</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        Développement Web
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Applications web personnalisées construites avec des technologies modernes pour des performances optimales.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Applications React
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Design Responsive
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Intégration API
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-gray-50 rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="bg-blue-600/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="text-blue-600 text-2xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        Solutions Mobiles
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Applications mobiles natives et cross-platform qui engagent les utilisateurs et génèrent des résultats business.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            iOS & Android
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Cross-Platform
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-700">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            Design UI/UX
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mt-12">
+                <p class="text-gray-600 mb-6">
+                    Prêt à transformer votre entreprise ?
+                </p>
+                <a href="#contact" class="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                    Démarrer votre projet
+                    <span class="group-hover:translate-x-1 transition-transform">🚀</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50 fade-in">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Portfolio
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Projets innovants démontrant l'excellence technique et l'impact business
+                </p>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-yellow-500">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            En Vedette
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">
+                            Plateforme EcoMarket
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Plateforme e-commerce durable connectant les marques éco-responsables avec les consommateurs conscients.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Node.js</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">MongoDB</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex-1 justify-center">
+                                <span>↗</span>
+                                Voir le projet
+                            </a>
+                            <a href="#" class="flex items-center gap-2 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors flex-1 justify-center">
+                                <span>🐙</span>
+                                Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-yellow-500">
+                    <div class="h-48 bg-gradient-to-br from-green-600 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            En Vedette
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">
+                            HealthTrack Pro
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Application de monitoring santé avec IA offrant des insights personnalisés et connectivité médecin.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">React Native</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Firebase</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex-1 justify-center">
+                                <span>↗</span>
+                                Voir le projet
+                            </a>
+                            <a href="#" class="flex items-center gap-2 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors flex-1 justify-center">
+                                <span>🐙</span>
+                                Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">
+                            LearnLingua
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Plateforme interactive d'apprentissage des langues avec pratique de conversation alimentée par IA.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Django</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex-1 justify-center">
+                                <span>↗</span>
+                                Voir le projet
+                            </a>
+                            <a href="#" class="flex items-center gap-2 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors flex-1 justify-center">
+                                <span>🐙</span>
+                                Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mt-12">
+                <p class="text-gray-600 mb-6">
+                    Intéressé par une collaboration ?
+                </p>
+                <a href="#contact" class="inline-flex items-center gap-2 bg-yellow-500 text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-yellow-400 transition-all duration-300">
+                    Démarrer un projet
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white fade-in">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Contact
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Prêt à donner vie à votre prochain projet ? Discutons de vos idées.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                        Parlons de votre projet
+                    </h3>
+
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Je suis toujours intéressé par de nouveaux défis et collaborations. Que vous ayez un projet en tête 
+                        ou que vous souhaitiez simplement discuter des possibilités, n'hésitez pas à me contacter.
+                    </p>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-4 mb-8">
+                        <a href="mailto:contact@alexjohnson.com" class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="bg-blue-600/10 p-3 rounded-lg group-hover:scale-110 transition-transform">
+                                <span class="text-blue-600 text-xl">✉</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800">Email</div>
+                                <div class="text-gray-600">contact@alexjohnson.com</div>
+                            </div>
+                        </a>
+
+                        <a href="tel:+33123456789" class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="bg-blue-600/10 p-3 rounded-lg group-hover:scale-110 transition-transform">
+                                <span class="text-blue-600 text-xl">📞</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800">Téléphone</div>
+                                <div class="text-gray-600">+33 1 23 45 67 89</div>
+                            </div>
+                        </a>
+
+                        <div class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="bg-blue-600/10 p-3 rounded-lg group-hover:scale-110 transition-transform">
+                                <span class="text-blue-600 text-xl">📍</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800">Localisation</div>
+                                <div class="text-gray-600">Paris, France</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-4">Suivez-moi</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-300">LinkedIn</a>
+                            <a href="#" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-300">Twitter</a>
+                            <a href="#" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-300">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <form id="contactForm" class="bg-gray-50 rounded-2xl p-8">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="mb-6">
+                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Sujet</label>
+                        <input type="text" id="subject" name="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all">
+                    </div>
+
+                    <!-- Message -->
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-blue-600 text-white py-4 px-8 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Logo and Description -->
+                <div class="md:col-span-2">
+                    <a href="#home" class="text-2xl font-bold mb-4 inline-block">
+                        Venture<span class="text-blue-400">Build</span>
+                    </a>
+                    <p class="text-gray-400 leading-relaxed">
+                        Entrepreneur passionné et innovateur digital dédié à la création de solutions qui transforment les idées en entreprises prospères.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Liens rapides</h4>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-400 hover:text-white transition-colors">Accueil</a>
+                        <a href="#about" class="block text-gray-400 hover:text-white transition-colors">À propos</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Services</a>
+                        <a href="#portfolio" class="block text-gray-400 hover:text-white transition-colors">Portfolio</a>
+                        <a href="#contact" class="block text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <div class="space-y-2">
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Stratégie Business</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Développement Web</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Apps Mobiles</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Marketing Digital</a>
+                        <a href="#services" class="block text-gray-400 hover:text-white transition-colors">Consulting</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2024 Alex Johnson. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('menu-open');
+        });
+
+        // Sticky Header
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+                header.classList.remove('bg-transparent');
+                // Update text colors for desktop navigation
+                const desktopLinks = header.querySelectorAll('.md\\:flex a');
+                desktopLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-gray-700');
+                });
+                // Update logo color
+                const logo = header.querySelector('a.text-2xl');
+                logo.classList.remove('text-white');
+                logo.classList.add('text-gray-800');
+            } else {
+                header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+                header.classList.add('bg-transparent');
+                // Update text colors for desktop navigation
+                const desktopLinks = header.querySelectorAll('.md\\:flex a');
+                desktopLinks.forEach(link => {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-gray-700');
+                });
+                // Update logo color
+                const logo = header.querySelector('a.text-2xl');
+                logo.classList.add('text-white');
+                logo.classList.remove('text-gray-800');
+            }
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+
+        // Form Validation
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && subject && message) {
+                alert('Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
+                contactForm.reset();
+            } else {
+                alert('Veuillez remplir tous les champs du formulaire.');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('menu-open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
