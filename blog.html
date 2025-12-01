@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | VentureBuild - Entrepreneur & Digital Innovator</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #3B82F6, #8B5CF6, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .article-image {
+            transform: scale(1.05);
+        }
+        
+        .tag {
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            transform: translateY(-2px);
+        }
+        
+        .read-time:after {
+            content: '•';
+            margin: 0 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .read-time:after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">VB</span>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-800">Venture<span class="text-blue-600">Blog</span></span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Accueil</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">À propos</a>
+                    <a href="index.html#portfolio" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Portfolio</a>
+                    <a href="blog.html" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">Blog</a>
+                    <a href="index.html#contact" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menuButton" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden mt-4 hidden">
+                <div class="flex flex-col space-y-4 bg-white p-4 rounded-lg shadow-lg">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Accueil</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">À propos</a>
+                    <a href="index.html#portfolio" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Portfolio</a>
+                    <a href="blog.html" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">Blog</a>
+                    <a href="index.html#contact" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Insights & <span class="gradient-text">Réflexions</span>
+                </h1>
+                <p class="text-xl text-blue-200 mb-10 max-w-2xl mx-auto">
+                    Partages d'expériences, conseils pratiques et analyses sur l'entrepreneuriat digital, la technologie et l'innovation.
+                </p>
+                
+                <!-- Search Bar -->
+                <div class="relative max-w-2xl mx-auto">
+                    <input type="text" 
+                           id="searchInput"
+                           placeholder="Rechercher un article, un sujet..."
+                           class="w-full px-6 py-4 pl-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                    <div class="absolute left-4 top-4 text-blue-200">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button id="searchButton" class="absolute right-3 top-3 bg-yellow-500 text-gray-900 p-3 rounded-full hover:bg-yellow-400 transition-colors">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Blog Posts Section -->
+            <div class="lg:w-2/3">
+                
+                <!-- Featured Article -->
+                <div class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg mb-12">
+                    <div class="md:flex">
+                        <!-- Featured Image -->
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <div class="article-image w-full h-64 md:h-full bg-gradient-to-r from-blue-600 to-purple-600"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
+                                    ARTICLE VEDETTE
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Featured Content -->
+                        <div class="md:w-3/5 p-8">
+                            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                                <span class="flex items-center gap-2">
+                                    <i class="far fa-calendar"></i>
+                                    15 Décembre 2024
+                                </span>
+                                <span class="read-time flex items-center gap-2">
+                                    <i class="far fa-clock"></i>
+                                    8 min de lecture
+                                </span>
+                                <span class="flex items-center gap-2">
+                                    <i class="far fa-eye"></i>
+                                    2.5K vues
+                                </span>
+                            </div>
+                            
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                                L'Avenir de l'Entrepreneuriat Digital : 5 Tendances Clés pour 2024
+                            </h2>
+                            
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Découvrez les tendances qui vont façonner le paysage entrepreneurial dans les mois à venir. De l'IA générative aux nouveaux modèles économiques, explorez comment adapter votre stratégie pour rester compétitif.
+                            </p>
+                            
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Entrepreneuriat
+                                </span>
+                                <span class="tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Innovation
+                                </span>
+                                <span class="tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Tendances
+                                </span>
+                            </div>
+                            
+                            <a href="#featured-article" 
+                               class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                                Lire l'article complet
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Articles Title -->
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Articles Récents</h2>
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                        <select class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Trier par : Plus récents</option>
+                            <option>Trier par : Plus populaires</option>
+                            <option>Trier par : Anciens</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Articles Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    
+                    <!-- Article 1 -->
+                    <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <div class="relative overflow-hidden">
+                            <div class="article-image h-48 w-full bg-gradient-to-r from-green-600 to-teal-600"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                    Marketing
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-calendar"></i>
+                                    10 Déc 2024
+                                </span>
+                                <span class="read-time">6 min</span>
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-comment"></i>
+                                    24
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">
+                                Stratégies de Growth Marketing pour Startups
+                            </h3>
+                            
+                            <p class="text-gray-600 mb-4 leading-relaxed">
+                                Comment développer votre audience rapidement sans dépenser des fortunes en publicité. Techniques éprouvées et outils gratuits.
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <a href="#article1" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                                    Lire plus →
+                                </a>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <div class="relative overflow-hidden">
+                            <div class="article-image h-48 w-full bg-gradient-to-r from-purple-600 to-pink-600"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                    Technologie
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-calendar"></i>
+                                    5 Déc 2024
+                                </span>
+                                <span class="read-time">10 min</span>
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-comment"></i>
+                                    18
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">
+                                L'IA dans le Développement Produit : Guide Complet
+                            </h3>
+                            
+                            <p class="text-gray-600 mb-4 leading-relaxed">
+                                Intégrez l'intelligence artificielle dans votre processus de développement produit. Cas pratiques et erreurs à éviter.
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <a href="#article2" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                                    Lire plus →
+                                </a>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <div class="relative overflow-hidden">
+                            <div class="article-image h-48 w-full bg-gradient-to-r from-orange-600 to-red-600"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                    Finance
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-calendar"></i>
+                                    28 Nov 2024
+                                </span>
+                                <span class="read-time">7 min</span>
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-comment"></i>
+                                    32
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">
+                                Gestion Financière : 5 Erreurs qui Font Couler les Startups
+                            </h3>
+                            
+                            <p class="text-gray-600 mb-4 leading-relaxed">
+                                Les pièges financiers les plus courants et comment les éviter grâce à des bonnes pratiques simples mais efficaces.
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <a href="#article3" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                                    Lire plus →
+                                </a>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 4 -->
+                    <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <div class="relative overflow-hidden">
+                            <div class="article-image h-48 w-full bg-gradient-to-r from-teal-600 to-blue-600"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                    Leadership
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-calendar"></i>
+                                    20 Nov 2024
+                                </span>
+                                <span class="read-time">9 min</span>
+                                <span class="flex items-center gap-1">
+                                    <i class="far fa-comment"></i>
+                                    15
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">
+                                Culture d'Entreprise en Télétravail : Guide Pratique
+                            </h3>
+                            
+                            <p class="text-gray-600 mb-4 leading-relaxed">
+                                Comment maintenir une culture d'entreprise forte et innovante dans un environnement de travail hybride ou à distance.
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <a href="#article4" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                                    Lire plus →
+                                </a>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="flex justify-center items-center space-x-2">
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                        1
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">
+                        2
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">
+                        3
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+            </div>
+            
+            <!-- Sidebar -->
+            <aside class="lg:w-1/3">
+                
+                <!-- About Author -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 border-b pb-3">À propos de l'Auteur</h3>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-yellow-500 p-1">
+                            <div class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-white font-bold text-xl">
+                                AJ
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-lg">Alex Johnson</h4>
+                            <p class="text-gray-600 text-sm">Entrepreneur & Digital Innovator</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Avec 12+ ans d'expérience, j'ai fondé et développé plusieurs entreprises digitales à succès. Je partage ici mes connaissances, expériences et réflexions sur l'entrepreneuriat et la technologie.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-700 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-pink-600 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 border-b pb-3">Catégories</h3>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                                    <i class="fas fa-rocket text-blue-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-700 group-hover:text-blue-600">Entrepreneuriat</span>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-bold">12</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-code text-green-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-700 group-hover:text-green-600">Technologie</span>
+                            </div>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-bold">8</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-purple-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-700 group-hover:text-purple-600">Marketing</span>
+                            </div>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-bold">6</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-yellow-100 flex items-center justify-center">
+                                    <i class="fas fa-users text-yellow-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-700 group-hover:text-yellow-600">Leadership</span>
+                            </div>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-bold">5</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+                                    <i class="fas fa-coins text-red-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-700 group-hover:text-red-600">Finance</span>
+                            </div>
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold">4</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Popular Articles -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 border-b pb-3">Articles Populaires</h3>
+                    <div class="space-y-4">
+                        <a href="#" class="flex items-start gap-3 group">
+                            <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors text-sm">
+                                    Comment Lever des Fonds pour sa Startup
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1">15 Nov 2024 • 2.1K vues</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 group">
+                            <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-green-600 to-teal-600 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 group-hover:text-green-600 transition-colors text-sm">
+                                    L'Art du Pitch Deck Parfait
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1">8 Nov 2024 • 1.8K vues</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-start gap-3 group">
+                            <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-orange-600 to-red-600 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 group-hover:text-orange-600 transition-colors text-sm">
+                                    Product-Market Fit : Guide Complet
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1">1 Nov 2024 • 3.5K vues</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-white mb-3">Newsletter</h3>
+                    <p class="text-blue-100 mb-4 text-sm">
+                        Recevez mes conseils et réflexions directement dans votre boîte mail. Pas de spam, uniquement du contenu de valeur.
+                    </p>
+                    <form id="newsletterForm" class="space-y-3">
+                        <input type="email" 
+                               placeholder="Votre adresse email"
+                               class="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-sm">
+                        <button type="submit" class="w-full bg-yellow-500 text-gray-900 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors text-sm">
+                            S'abonner à la newsletter
+                        </button>
+                    </form>
+                    <p class="text-xs text-blue-200 mt-3">
+                        En vous inscrivant, vous acceptez notre politique de confidentialité
+                    </p>
+                </div>
+                
+            </aside>
+            
+        </div>
+    </main>
+    
+    <!-- Article Modal (for reading articles) -->
+    <div id="articleModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800">Lecture de l'article</h3>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-6" id="modalContent">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Logo and Description -->
+                <div class="md:col-span-2">
+                    <a href="index.html" class="text-2xl font-bold mb-4 inline-block">
+                        Venture<span class="text-blue-400">Build</span>
+                    </a>
+                    <p class="text-gray-400 leading-relaxed max-w-md">
+                        Entrepreneur passionné et innovateur digital dédié à la création de solutions qui transforment les idées en entreprises prospères.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Navigation</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-white transition-colors">Accueil</a>
+                        <a href="index.html#about" class="block text-gray-400 hover:text-white transition-colors">À propos</a>
+                        <a href="index.html#portfolio" class="block text-gray-400 hover:text-white transition-colors">Portfolio</a>
+                        <a href="blog.html" class="block text-gray-400 hover:text-white transition-colors">Blog</a>
+                        <a href="index.html#contact" class="block text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Social & Contact -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connectons</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">contact@venturebuild.com</p>
+                        <p class="text-gray-400 text-sm">+33 1 23 45 67 89</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2024 VentureBuild. Tous droits réservés.</p>
+                <p class="text-sm mt-2">Conçu avec ❤️ par Alex Johnson</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Recherche pour: "${query}"\n\nCette fonctionnalité serait connectée à un moteur de recherche dans une version complète.`);
+                searchInput.value = '';
+            }
+        }
+        
+        // Newsletter Form
+        const newsletterForm = document.getElementById('newsletterForm');
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = newsletterForm.querySelector('input[type="email"]');
+            const email = emailInput.value.trim();
+            
+            if (email && email.includes('@')) {
+                alert(`Merci pour votre inscription à la newsletter !\n\nUn email de confirmation a été envoyé à ${email}`);
+                newsletterForm.reset();
+            } else {
+                alert('Veuillez entrer une adresse email valide.');
+            }
+        });
+        
+        // Article Modal
+        const articleModal = document.getElementById('articleModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Sample article content for the modal
+        const articles = {
+            'featured-article': `
+                <div class="article-content">
+                    <div class="mb-6">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-4">L'Avenir de l'Entrepreneuriat Digital : 5 Tendances Clés pour 2024</h1>
+                        <div class="flex items-center gap-4 text-gray-500 text-sm mb-6">
+                            <span><i class="far fa-calendar mr-1"></i> 15 Décembre 2024</span>
+                            <span><i class="far fa-clock mr-1"></i> 8 min de lecture</span>
+                            <span><i class="far fa-eye mr-1"></i> 2.5K vues</span>
+                        </div>
+                    </div>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-700 mb-6">L'année 2024 s'annonce comme un tournant décisif pour l'entrepreneuriat digital. Les avancées technologiques rapides et l'évolution des comportements consommateurs créent à la fois des défis et des opportunités sans précédent.</p>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">1. L'IA Générative : Au-delà de l'Expérimentation</h2>
+                        <p>L'intelligence artificielle n'est plus un simple outil expérimental. En 2024, elle devient un élément central de la stratégie d'entreprise. Les solutions comme ChatGPT et Midjourney permettent désormais :</p>
+                        <ul class="list-disc pl-6 mb-6">
+                            <li>L'automatisation de tâches créatives répétitives</li>
+                            <li>La personnalisation à grande échelle du contenu</li>
+                            <li>L'analyse prédictive des tendances marché</li>
+                        </ul>
+                        
+                        <blockquote class="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-6">
+                            "L'IA ne remplace pas l'intelligence humaine, elle l'amplifie. Les entrepreneurs qui sauront tirer parti de cette synergie créeront des entreprises résilientes."
+                        </blockquote>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">2. Le Commerce Social (Social Commerce) Mature</h2>
+                        <p>Les plateformes sociales évoluent de canaux marketing vers de véritables écosystèmes commerciaux. TikTok Shop, Instagram Shopping et les nouvelles fonctionnalités LinkedIn transforment fondamentalement le parcours d'achat.</p>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">3. Durabilité Digitale et Impact Social</h2>
+                        <p>La durabilité n'est plus un argument marketing optionnel. Les consommateurs exigent désormais une véritable démarche éco-responsable et socialement engagée.</p>
+                        
+                        <div class="bg-blue-50 rounded-xl p-6 my-8 border-l-4 border-blue-500">
+                            <h3 class="font-bold text-gray-800 mb-2">💡 Conseil Pratique</h3>
+                            <p class="text-gray-700">Intégrez la durabilité dès la conception de votre produit. Mesurez votre impact carbone numérique et compensez-le via des partenariats certifiés.</p>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Conclusion</h2>
+                        <p>2024 n'est pas l'année des révolutions fracassantes, mais celle des évolutions stratégiques. Les entrepreneurs qui réussiront seront ceux qui sauront identifier les tendances pertinentes pour leur marché spécifique, expérimenter avec agilité, et pivoter lorsque nécessaire.</p>
+                    </div>
+                </div>
+            `,
+            'article1': `
+                <div class="article-content">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Stratégies de Growth Marketing pour Startups</h1>
+                    <p>Contenu complet de l'article sur le growth marketing...</p>
+                </div>
+            `,
+            'article2': `
+                <div class="article-content">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">L'IA dans le Développement Produit : Guide Complet</h1>
+                    <p>Contenu complet de l'article sur l'IA...</p>
+                </div>
+            `,
+            'article3': `
+                <div class="article-content">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestion Financière : 5 Erreurs qui Font Couler les Startups</h1>
+                    <p>Contenu complet de l'article sur la gestion financière...</p>
+                </div>
+            `,
+            'article4': `
+                <div class="article-content">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Culture d'Entreprise en Télétravail : Guide Pratique</h1>
+                    <p>Contenu complet de l'article sur la culture d'entreprise...</p>
+                </div>
+            `
+        };
+        
+        // Open article modal when clicking "Read more"
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const articleId = link.getAttribute('href').substring(1);
+                if (articles[articleId]) {
+                    e.preventDefault();
+                    modalContent.innerHTML = articles[articleId];
+                    articleModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            articleModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        articleModal.addEventListener('click', (e) => {
+            if (e.target === articleModal) {
+                articleModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Category filtering
+        document.querySelectorAll('.tag, [href="#"]').forEach(element => {
+            element.addEventListener('click', (e) => {
+                if (element.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const category = element.textContent.trim();
+                    alert(`Filtrage par catégorie: "${category}"\n\nCette fonctionnalité filtrerait les articles dans une version complète.`);
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !articles[href.substring(1)]) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Pagination functionality
+        document.querySelectorAll('.bg-gray-200').forEach(pageBtn => {
+            pageBtn.addEventListener('click', () => {
+                const page = pageBtn.textContent.trim();
+                alert(`Chargement de la page ${page}...\n\nCette fonctionnalité chargerait les articles suivants dans une version complète.`);
+            });
+        });
+        
+        // Filter functionality
+        document.querySelector('select').addEventListener('change', (e) => {
+            const sortBy = e.target.value;
+            alert(`Tri des articles par: ${sortBy}\n\nCette fonctionnalité trierait les articles dans une version complète.`);
+        });
+    </script>
+    
+</body>
+</html>
