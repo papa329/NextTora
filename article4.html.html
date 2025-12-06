@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a US Business from Abroad: The Power of an LLC | NextTora Incubator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #1f2937;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+        }
+        .nexttora-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        }
+        .benefit-card {
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-top-color: #8b5cf6;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.1);
+        }
+        .step-indicator {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 12px;
+        }
+        .sticky-share {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        .language-switcher {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            z-index: 100;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .translation-highlight {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-left: 4px solid #3b82f6;
+        }
+        .incubator-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .state-comparison {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 2px;
+        }
+        .state-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .state-option.active {
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 300px;
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 12px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* French translation styling */
+        .french-translation {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #e5e7eb;
+        }
+        .french-translation.visible {
+            display: block;
+        }
+        .translation-toggle {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .translation-toggle:hover {
+            background: #e5e7eb;
+        }
+        .translation-toggle.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <div class="flex">
+            <button id="englishBtn" class="translation-toggle active px-4 py-2">
+                <i class="fas fa-language mr-2"></i>EN
+            </button>
+            <button id="frenchBtn" class="translation-toggle px-4 py-2">
+                <i class="fas fa-language mr-2"></i>FR
+            </button>
+        </div>
+    </div>
+
+    <!-- Sticky Share Buttons -->
+    <div class="sticky-share hidden md:block">
+        <div class="flex flex-col space-y-4">
+            <button onclick="shareOnTwitter()" class="w-12 h-12 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-all shadow-lg">
+                <i class="fab fa-twitter"></i>
+            </button>
+            <button onclick="shareOnLinkedIn()" class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-all shadow-lg">
+                <i class="fab fa-linkedin-in"></i>
+            </button>
+            <button onclick="shareOnFacebook()" class="w-12 h-12 bg-blue-800 text-white rounded-full flex items-center justify-center hover:bg-blue-900 transition-all shadow-lg">
+                <i class="fab fa-facebook-f"></i>
+            </button>
+            <button onclick="copyLink()" class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center hover:bg-purple-700 transition-all shadow-lg">
+                <i class="fas fa-link"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="text-xl font-bold text-purple-600">
+                        <i class="fas fa-globe-americas mr-2"></i>Global Business
+                    </a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="#" class="text-gray-700 hover:text-purple-600">US LLC</a>
+                        <a href="#" class="text-gray-700 hover:text-purple-600">International</a>
+                        <a href="#" class="text-gray-700 hover:text-purple-600">Tax Optimization</a>
+                        <a href="#" class="text-gray-700 hover:text-purple-600">Resources</a>
+                    </div>
+                </div>
+                <a href="https://nexttora.com/global-expansion" target="_blank" 
+                   class="nexttora-gradient text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all flex items-center shadow-lg">
+                    <i class="fas fa-rocket mr-2"></i>Scale with NextTora
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center space-x-2 text-sm bg-white/20 px-4 py-2 rounded-full mb-6">
+                    <i class="fas fa-star"></i>
+                    <span>Expert Guide</span>
+                    <span>•</span>
+                    <span>February 5, 2024</span>
+                    <span>•</span>
+                    <span>10 min read</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    Building a US Business from Abroad:<br>The Power of an LLC
+                </h1>
+                
+                <p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+                    Why entrepreneurs worldwide are choosing US LLCs to scale globally, reduce taxes, 
+                    and access the world's largest market—without stepping foot in America.
+                </p>
+                
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
+                    <div class="bg-white/10 p-4 rounded-lg">
+                        <div class="text-2xl font-bold mb-1">1.5M+</div>
+                        <div class="text-sm opacity-90">Foreign-owned LLCs</div>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-lg">
+                        <div class="text-2xl font-bold mb-1">0%</div>
+                        <div class="text-sm opacity-90">Federal corporate tax*</div>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-lg">
+                        <div class="text-2xl font-bold mb-1">$0</div>
+                        <div class="text-sm opacity-90">Minimum capital required</div>
+                    </div>
+                </div>
+                
+                <!-- Translation Toggle -->
+                <div class="mb-8">
+                    <div class="inline-flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                        <i class="fas fa-language"></i>
+                        <span class="text-sm">Read in:</span>
+                        <button id="heroEnglishBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded-full">English</button>
+                        <button id="heroFrenchBtn" class="text-sm bg-transparent text-white px-3 py-1 rounded-full hover:bg-white/20">Français</button>
+                    </div>
+                </div>
+                
+                <!-- Share Buttons -->
+                <div class="flex justify-center space-x-6 mb-8">
+                    <span class="text-white/80 flex items-center">
+                        <i class="fas fa-share-alt mr-2"></i>Share:
+                    </span>
+                    <button onclick="shareOnTwitter()" class="text-white hover:text-blue-300 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </button>
+                    <button onclick="shareOnLinkedIn()" class="text-white hover:text-blue-300 transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </button>
+                    <button onclick="shareOnFacebook()" class="text-white hover:text-blue-300 transition-colors">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </button>
+                    <button onclick="shareOnWhatsApp()" class="text-white hover:text-green-300 transition-colors">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="flex items-center justify-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                        AJ
+                    </div>
+                    <div class="text-left">
+                        <div class="font-semibold">Alex Johnson</div>
+                        <div class="text-white/80 text-sm">Global Business Strategist & NextTora Partner</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Introduction -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 fade-in">
+                <div class="flex items-start mb-6">
+                    <div class="text-purple-600 text-2xl mr-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3">The Global Entrepreneur's Secret Weapon</h2>
+                        <p class="text-gray-700 mb-4">
+                            After helping 200+ international entrepreneurs establish US businesses through 
+                            <strong class="text-purple-600">NextTora's Global Incubation Program</strong>, I've seen firsthand how a 
+                            properly structured US LLC can transform a local business into a global player.
+                        </p>
+                        <div class="translation-highlight p-4 rounded-lg">
+                            <p class="text-gray-700">
+                                <i class="fas fa-globe-europe text-blue-500 mr-2"></i>
+                                <strong>French Translation Available:</strong> Click the "FR" button above to read this article in French.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- French Translation -->
+                <div id="introFrench" class="french-translation">
+                    <div class="flex items-start mb-6">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-3">L'Arme Secrète de l'Entrepreneur Global</h2>
+                            <p class="text-gray-700">
+                                Après avoir aidé 200+ entrepreneurs internationaux à établir des entreprises aux États-Unis via 
+                                <strong class="text-blue-600">le Programme d'Incubation Global de NextTora</strong>, j'ai vu de mes propres yeux comment une 
+                                LLC américaine bien structurée peut transformer une entreprise locale en acteur global.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NextTora Banner 1 -->
+            <div class="nexttora-gradient text-white rounded-xl shadow-lg p-8 mb-12 text-center relative fade-in">
+                <div class="incubator-badge">
+                    <i class="fas fa-seedling mr-1"></i> NextTora Incubator
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center mb-4">
+                    <i class="fas fa-globe text-3xl mb-4 md:mb-0 md:mr-6"></i>
+                    <h3 class="text-2xl font-bold">Ready to Launch Your US Business?</h3>
+                </div>
+                <p class="mb-6 text-lg">
+                    <strong>NextTora's</strong> Global Expansion Package includes LLC formation, US bank account setup, 
+                    tax optimization strategy, and ongoing compliance—all handled by our experts.
+                </p>
+                <a href="https://nexttora.com/global-launchpad" target="_blank" 
+                   class="inline-block bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-play-circle mr-2"></i>Start Your US Journey
+                </a>
+                
+                <!-- French Translation -->
+                <div id="bannerFrench" class="french-translation text-white border-white/20">
+                    <p class="mb-6 text-lg">
+                        Le <strong>Pack Expansion Global de NextTora</strong> inclut la création de LLC, l'ouverture de compte bancaire américain, 
+                        la stratégie d'optimisation fiscale, et la conformité continue—tout géré par nos experts.
+                    </p>
+                    <a href="https://nexttora.com/fr/global-launchpad" target="_blank" 
+                       class="inline-block bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-play-circle mr-2"></i>Démarrer Votre Aventure Américaine
+                    </a>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <section class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <div class="step-indicator">1</div>
+                    Why a US LLC? The 7 Key Benefits
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- Benefit 1 -->
+                    <div class="benefit-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-shield-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Limited Liability Protection</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            Your personal assets are protected from business debts and lawsuits. This is the #1 reason 
+                            entrepreneurs choose LLCs over sole proprietorships.
+                        </p>
+                        <div class="text-sm text-blue-600 font-semibold">
+                            <i class="fas fa-check-circle mr-1"></i> Personal asset protection
+                        </div>
+                    </div>
+                    
+                    <!-- Benefit 2 -->
+                    <div class="benefit-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-money-bill-wave text-green-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Tax Flexibility</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            Choose between pass-through taxation (no corporate tax) or elect corporate taxation. 
+                            <span class="tooltip">Perfect for international tax planning
+                                <span class="tooltip-text">NextTora's tax experts help optimize your structure for maximum savings</span>
+                            </span>.
+                        </p>
+                    </div>
+                    
+                    <!-- More benefits would continue... -->
+                </div>
+                
+                <!-- French Translation of Benefits -->
+                <div id="benefitsFrench" class="french-translation mt-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Pourquoi une LLC Américaine ? Les 7 Avantages Clés</h3>
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <p class="text-gray-700 mb-4">
+                            Une LLC américaine offre des avantages uniques pour les entrepreneurs internationaux :
+                            protection des actifs personnels, flexibilité fiscale, crédibilité accrue, et accès au marché américain.
+                        </p>
+                        <p class="text-gray-700">
+                            <strong>NextTora</strong> accompagne chaque étape, de la création à la gestion continue.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- State Comparison -->
+            <section class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <div class="step-indicator">2</div>
+                    Choosing the Right State: Delaware vs Wyoming vs New Mexico
+                </h2>
+                
+                <div class="state-comparison p-6 mb-8">
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="state-option active text-center p-4 rounded-lg" data-state="delaware">
+                            <div class="font-bold text-lg mb-2">Delaware</div>
+                            <div class="text-sm text-gray-600">Most popular choice</div>
+                        </div>
+                        <div class="state-option text-center p-4 rounded-lg" data-state="wyoming">
+                            <div class="font-bold text-lg mb-2">Wyoming</div>
+                            <div class="text-sm text-gray-600">Best for privacy</div>
+                        </div>
+                        <div class="state-option text-center p-4 rounded-lg" data-state="newmexico">
+                            <div class="font-bold text-lg mb-2">New Mexico</div>
+                            <div class="text-sm text-gray-600">Most affordable</div>
+                        </div>
+                    </div>
+                    
+                    <!-- State Details -->
+                    <div id="stateDetails" class="bg-white p-6 rounded-lg">
+                        <div id="delawareDetails">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">Why Delaware?</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span><strong>Business-friendly courts:</strong> Specialized Court of Chancery</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span><strong>No state corporate income tax</strong> for companies not operating in Delaware</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span><strong>Investor preference:</strong> 67% of Fortune 500 companies are incorporated in Delaware</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NextTora State Recommendation -->
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-map-marker-alt text-purple-600 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">NextTora's State Selection Service</h3>
+                    </div>
+                    <p class="mb-4">
+                        Not sure which state is right for you? <strong>NextTora's</strong> experts analyze your business model, 
+                        tax situation, and growth plans to recommend the optimal state for incorporation.
+                    </p>
+                    <a href="https://nexttora.com/state-analysis" target="_blank" 
+                       class="inline-flex items-center text-purple-600 font-semibold hover:text-purple-700">
+                        Get a free state analysis
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Step-by-Step Guide -->
+            <section class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <div class="step-indicator">3</div>
+                    The 5-Step Process to Your US LLC
+                </h2>
+                
+                <div class="space-y-6">
+                    <!-- Step 1 -->
+                    <div class="flex items-start bg-white p-6 rounded-xl shadow-md">
+                        <div class="step-indicator flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Choose Your State</h3>
+                            <p class="text-gray-700 mb-3">
+                                Based on your business needs, tax considerations, and privacy requirements.
+                            </p>
+                            <div class="text-sm text-purple-600">
+                                <i class="fas fa-clock mr-1"></i> Time: 1-2 days (with NextTora's guidance)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex items-start bg-white p-6 rounded-xl shadow-md">
+                        <div class="step-indicator flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Name Your LLC</h3>
+                            <p class="text-gray-700 mb-3">
+                                Ensure name availability and compliance with state requirements.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 with NextTora Highlight -->
+                    <div class="flex items-start bg-white p-6 rounded-xl shadow-md relative">
+                        <div class="absolute -top-3 -right-3 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            <i class="fas fa-bolt mr-1"></i> NextTora Special
+                        </div>
+                        <div class="step-indicator flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Appoint a Registered Agent</h3>
+                            <p class="text-gray-700 mb-3">
+                                Required by law. <strong>NextTora</strong> provides this service for all clients, ensuring 
+                                you never miss important legal documents.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- More steps... -->
+                </div>
+            </section>
+
+            <!-- Cost Breakdown -->
+            <section class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Real Costs: DIY vs NextTora Package</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- DIY Column -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Going DIY</h3>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">State filing fees</span>
+                                <span class="font-bold">$50 - $500</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Registered agent (annual)</span>
+                                <span class="font-bold">$100 - $300</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Legal consultation</span>
+                                <span class="font-bold">$500 - $2,000</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Bank account setup*</span>
+                                <span class="font-bold">Challenging</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-sm text-gray-500 mb-2">Total first-year cost (estimated)</div>
+                            <div class="text-2xl font-bold text-gray-800">$1,500 - $3,500+</div>
+                            <div class="text-sm text-gray-500 mt-2">+ Time investment: 40+ hours</div>
+                        </div>
+                    </div>
+                    
+                    <!-- NextTora Column -->
+                    <div class="bg-gradient-to-b from-purple-50 to-white rounded-xl shadow-lg p-6 border-2 border-purple-200">
+                        <div class="text-center mb-2">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                RECOMMENDED
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">NextTora Global Package</h3>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Complete LLC formation</span>
+                                <span class="font-bold text-green-600">INCLUDED</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Registered agent (1st year)</span>
+                                <span class="font-bold text-green-600">INCLUDED</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Legal & tax consultation</span>
+                                <span class="font-bold text-green-600">INCLUDED</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">US bank account setup</span>
+                                <span class="font-bold text-green-600">INCLUDED</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <span class="text-gray-700">Ongoing compliance</span>
+                                <span class="font-bold text-green-600">INCLUDED</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-sm text-gray-500 mb-2">All-inclusive package</div>
+                            <div class="text-3xl font-bold text-gray-800 mb-2">$1,997</div>
+                            <div class="text-sm text-green-600 font-semibold mb-4">
+                                <i class="fas fa-check-circle mr-1"></i> Save 40% vs DIY
+                            </div>
+                            <a href="https://nexttora.com/global-package" target="_blank" 
+                               class="block w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors text-center">
+                                Get the Complete Package
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Success Story -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-12 fade-in">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    <i class="fas fa-trophy mr-3"></i>Case Study: From France to Global Market
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-purple-700 mb-4">SaaS Startup - Paris, France</h3>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-chart-line text-purple-600 mt-1 mr-3"></i>
+                                <span>Before: Limited to EU market, struggling with payment processing</span>
+                            </li>
+                            <li class="fas fa-check text-green-600 mt-1 mr-3"></i>
+                                <span>With NextTora: Delaware LLC formed in 72 hours</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dollar-sign text-purple-600 mt-1 mr-3"></i>
+                                <span>Result: 300% revenue increase, secured US investors</span>
+                            </li>
+                        </ul>
+                        <a href="https://nexttora.com/success-stories" target="_blank" 
+                           class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                            More Success Stories
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <p class="italic text-gray-700 mb-4">
+                            "NextTora made our US expansion seamless. Their team handled everything from LLC formation 
+                            to opening our US bank account. We went from idea to operating in the US market in under 2 weeks."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                            <div>
+                                <div class="font-semibold">Pierre Martin</div>
+                                <div class="text-sm text-gray-500">CEO, TechScale SaaS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white rounded-xl shadow-2xl p-12 mb-12 fade-in">
+                <i class="fas fa-globe-americas text-5xl mb-6"></i>
+                <h2 class="text-3xl font-bold mb-4">Ready to Build Your Global Business?</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Join 500+ international entrepreneurs who've successfully expanded to the US with 
+                    <strong>NextTora's</strong> proven incubation program
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white/10 p-6 rounded-lg">
+                        <i class="fas fa-bolt text-2xl mb-4"></i>
+                        <h4 class="font-bold mb-2">72-Hour Launch</h4>
+                        <p class="text-sm opacity-90">From application to operational</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-lg">
+                        <i class="fas fa-handshake text-2xl mb-4"></i>
+                        <h4 class="font-bold mb-2">Dedicated Expert</h4>
+                        <p class="text-sm opacity-90">Personal US expansion manager</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-lg">
+                        <i class="fas fa-shield-alt text-2xl mb-4"></i>
+                        <h4 class="font-bold mb-2">Full Compliance</h4>
+                        <p class="text-sm opacity-90">Legal & tax compliance guaranteed</p>
+                    </div>
+                </div>
+                
+                <a href="https://nexttora.com/book-consultation" target="_blank" 
+                   class="inline-block bg-white text-purple-600 px-10 py-4 rounded-full font-bold hover:bg-gray-100 transition-all transform hover:scale-105 text-lg shadow-xl">
+                    <i class="fas fa-calendar-check mr-3"></i>Book Free Consultation
+                </a>
+                
+                <p class="mt-6 text-sm opacity-90">
+                    <i class="fas fa-clock mr-2"></i>Limited spots available this month
+                </p>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 fade-in">
+                <div class="flex flex-col md:flex-row items-center md:items-start">
+                    <div class="w-24 h-24 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-6 md:mb-0 md:mr-8">
+                        AJ
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Alex Johnson</h3>
+                        <p class="text-purple-600 font-semibold mb-4">
+                            <i class="fas fa-handshake mr-2"></i>Global Expansion Partner at NextTora Incubator
+                        </p>
+                        <p class="text-gray-700 mb-6">
+                            I've spent the last 8 years helping entrepreneurs from 35+ countries establish and scale 
+                            their US businesses. My expertise covers international tax optimization, cross-border legal 
+                            structures, and global market entry strategies. At <strong>NextTora</strong>, I lead our 
+                            Global Incubation Program that has helped launch 200+ international businesses in the US market.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://nexttora.com/team/alex" target="_blank" 
+                               class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                                <i class="fas fa-user-tie mr-2"></i>My NextTora Profile
+                            </a>
+                            <a href="https://linkedin.com/in/alexjohnson-global" target="_blank" 
+                               class="border border-gray-300 text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                            </a>
+                            <a href="https://nexttora.com/blog" target="_blank" 
+                               class="border border-gray-300 text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-newspaper mr-2"></i>More Articles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share Section -->
+            <div class="text-center bg-gray-100 rounded-xl p-8 fade-in">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-share-alt mr-3"></i>Found This Helpful?
+                </h3>
+                <p class="text-gray-600 mb-6">Share this guide with other global entrepreneurs!</p>
+                
+                <div class="flex justify-center space-x-6">
+                    <button onclick="shareOnTwitter()" class="share-btn bg-blue-400 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl hover:bg-blue-500 transition-all shadow-lg">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button onclick="shareOnLinkedIn()" class="share-btn bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl hover:bg-blue-700 transition-all shadow-lg">
+                        <i class="fab fa-linkedin-in"></i>
+                    </button>
+                    <button onclick="shareOnFacebook()" class="share-btn bg-blue-800 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl hover:bg-blue-900 transition-all shadow-lg">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button onclick="shareOnWhatsApp()" class="share-btn bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl hover:bg-green-600 transition-all shadow-lg">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button onclick="copyLink()" class="share-btn bg-purple-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl hover:bg-purple-700 transition-all shadow-lg">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+                
+                <div id="copyAlert" class="mt-4 hidden">
+                    <p class="text-green-600 font-semibold animate-pulse">
+                        <i class="fas fa-check-circle mr-2"></i>Link copied successfully!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <a href="https://nexttora.com" target="_blank" class="text-2xl font-bold mb-4 inline-block">
+                        NextTora<span class="text-purple-400">.com</span>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Global business incubator helping international entrepreneurs launch and scale 
+                        in the US market. LLC formation, banking, compliance, and growth services.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://twitter.com/nexttora" target="_blank" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/nexttora" target="_blank" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/nexttora" target="_blank" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/nexttora" target="_blank" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://nexttora.com/llc-formation" target="_blank" class="text-gray-400 hover:text-white">US LLC Formation</a></li>
+                        <li><a href="https://nexttora.com/banking" target="_blank" class="text-gray-400 hover:text-white">US Bank Accounts</a></li>
+                        <li><a href="https://nexttora.com/tax-optimization" target="_blank" class="text-gray-400 hover:text-white">Tax Optimization</a></li>
+                        <li><a href="https://nexttora.com/compliance" target="_blank" class="text-gray-400 hover:text-white">Ongoing Compliance</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://nexttora.com/guides" target="_blank" class="text-gray-400 hover:text-white">Free Guides</a></li>
+                        <li><a href="https://nexttora.com/tools" target="_blank" class="text-gray-400 hover:text-white">Business Tools</a></li>
+                        <li><a href="https://nexttora.com/webinars" target="_blank" class="text-gray-400 hover:text-white">Webinars</a></li>
+                        <li><a href="https://nexttora.com/glossary" target="_blank" class="text-gray-400 hover:text-white">Business Glossary</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2024 NextTora Incubator. All rights reserved. "Your Gateway to the US Market"</p>
+                <p class="mt-2 text-sm">*Pass-through LLCs don't pay federal corporate income tax. Owners report profits on personal tax returns.</p>
+                <p class="mt-1 text-xs">This article is part of NextTora's "Global Business" series. Results may vary.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching
+        const englishBtn = document.getElementById('englishBtn');
+        const frenchBtn = document.getElementById('frenchBtn');
+        const heroEnglishBtn = document.getElementById('heroEnglishBtn');
+        const heroFrenchBtn = document.getElementById('heroFrenchBtn');
+        let currentLanguage = 'english';
+
+        function switchToEnglish() {
+            currentLanguage = 'english';
+            englishBtn.classList.add('active');
+            frenchBtn.classList.remove('active');
+            heroEnglishBtn.classList.add('bg-white', 'text-purple-600');
+            heroEnglishBtn.classList.remove('bg-transparent', 'text-white');
+            heroFrenchBtn.classList.add('bg-transparent', 'text-white');
+            heroFrenchBtn.classList.remove('bg-white', 'text-purple-600');
+            
+            // Hide all French translations
+            document.querySelectorAll('.french-translation').forEach(el => {
+                el.classList.remove('visible');
+            });
+        }
+
+        function switchToFrench() {
+            currentLanguage = 'french';
+            frenchBtn.classList.add('active');
+            englishBtn.classList.remove('active');
+            heroFrenchBtn.classList.add('bg-white', 'text-purple-600');
+            heroFrenchBtn.classList.remove('bg-transparent', 'text-white');
+            heroEnglishBtn.classList.add('bg-transparent', 'text-white');
+            heroEnglishBtn.classList.remove('bg-white', 'text-purple-600');
+            
+            // Show all French translations
+            document.querySelectorAll('.french-translation').forEach(el => {
+                el.classList.add('visible');
+            });
+        }
+
+        englishBtn.addEventListener('click', switchToEnglish);
+        frenchBtn.addEventListener('click', switchToFrench);
+        heroEnglishBtn.addEventListener('click', switchToEnglish);
+        heroFrenchBtn.addEventListener('click', switchToFrench);
+
+        // Share functions
+        const articleUrl = window.location.href;
+        const articleTitle = "Building a US Business from Abroad: The Power of an LLC";
+        const articleDesc = "Complete guide to forming a US LLC as an international entrepreneur. Tax benefits, state selection, and step-by-step process.";
+
+        function shareOnTwitter() {
+            const text = currentLanguage === 'english' 
+                ? `${articleTitle} - Guide by @NextTora`
+                : "Construire une entreprise américaine depuis l'étranger : Le pouvoir d'une LLC - Guide par @NextTora";
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(articleUrl)}&hashtags=USLLC,GlobalBusiness,Entrepreneur`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnLinkedIn() {
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+            window.open(url, '_blank', 'width=600,height=600');
+        }
+
+        function shareOnFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnWhatsApp() {
+            const text = currentLanguage === 'english'
+                ? `${articleTitle} - ${articleUrl}`
+                : `Construire une entreprise américaine depuis l'étranger : Le pouvoir d'une LLC - ${articleUrl}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank', 'width=600,height=600');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(articleUrl).then(() => {
+                const alert = document.getElementById('copyAlert');
+                alert.classList.remove('hidden');
+                setTimeout(() => {
+                    alert.classList.add('hidden');
+                }, 3000);
+            });
+        }
+
+        // State comparison interaction
+        const stateOptions = document.querySelectorAll('.state-option');
+        const stateDetails = document.getElementById('stateDetails');
+
+        const stateData = {
+            delaware: `
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Why Delaware?</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Business-friendly courts:</strong> Specialized Court of Chancery</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>No state corporate income tax</strong> for companies not operating in Delaware</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Investor preference:</strong> 67% of Fortune 500 companies are incorporated in Delaware</span>
+                    </li>
+                </ul>
+                <div class="mt-4 text-sm text-blue-600">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    <strong>NextTora Recommendation:</strong> Best for startups seeking investment or planning to scale
+                </div>
+            `,
+            wyoming: `
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Why Wyoming?</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Strong privacy protection:</strong> No public disclosure of members/managers</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>No state corporate income tax</strong> and low annual fees</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Asset protection:</strong> Strong charging order protection</span>
+                    </li>
+                </ul>
+                <div class="mt-4 text-sm text-blue-600">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    <strong>NextTora Recommendation:</strong> Ideal for privacy-focused businesses and asset protection
+                </div>
+            `,
+            newmexico: `
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Why New Mexico?</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Lowest cost:</strong> Only $50 filing fee (cheapest in the US)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Privacy:</strong> No requirement to list members in formation documents</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span><strong>No annual reports:</strong> Lower ongoing maintenance</span>
+                    </li>
+                </ul>
+                <div class="mt-4 text-sm text-blue-600">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    <strong>NextTora Recommendation:</strong> Best for bootstrapped startups and testing the US market
+                </div>
+            `
+        };
+
+        stateOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                stateOptions.forEach(opt => opt.classList.remove('active'));
+                // Add active class to clicked option
+                this.classList.add('active');
+                // Update content
+                const state = this.dataset.state;
+                stateDetails.innerHTML = stateData[state];
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile share button handling
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth < 768) {
+                const stickyShare = document.querySelector('.sticky-share');
+                if (stickyShare) {
+                    stickyShare.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
