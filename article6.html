@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devenir le leader que les autres veulent suivre : L'héritage de Marcelin Charistal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2d3748;
+            --secondary: #2b6cb0;
+            --accent: #4299e1;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --gray: #718096;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 22px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Sticky Share */
+        .sticky-share {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            animation: slideInLeft 0.6s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%) translateY(-50%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) translateY(-50%);
+                opacity: 1;
+            }
+        }
+        
+        /* Share Buttons */
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .share-btn:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 120%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            z-index: 1001;
+        }
+        
+        .twitter { background: #1da1f2; }
+        .linkedin { background: #0077b5; }
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25d366; }
+        .copy { background: #805ad5; }
+        
+        /* Share Section */
+        .share-section {
+            margin: 50px 0;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(43, 108, 176, 0.05) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--border);
+        }
+        
+        .share-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideInRight 0.4s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Main Content */
+        main {
+            padding: 70px 0;
+        }
+        
+        .content-wrapper {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        /* Author Highlight */
+        .author-highlight {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(43, 108, 176, 0.05) 100%);
+            border-radius: 20px;
+            border-left: 6px solid var(--secondary);
+        }
+        
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .author-info h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .author-title {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .author-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            background: var(--accent);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .badge.entrepreneur { background: var(--success); }
+        .badge.investor { background: #805ad5; }
+        .badge.author { background: var(--warning); }
+        .badge.leader { background: var(--danger); }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 70px;
+            padding-bottom: 50px;
+            border-bottom: 3px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .section-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(43, 108, 176, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        /* Business Portfolio */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .business-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent);
+        }
+        
+        .business-year {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .business-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+        
+        .business-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .business-tag {
+            display: inline-block;
+            background: var(--light);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Books Section */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .book-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid #f0f4f8;
+            transition: all 0.3s ease;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent);
+        }
+        
+        .book-year {
+            background: var(--warning);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .book-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        /* Leadership Principles */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin: 40px 0;
+        }
+        
+        .principle-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .principle-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .principle-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+        
+        /* Quotes */
+        .quote-box {
+            background: linear-gradient(135deg, rgba(43, 108, 176, 0.1) 0%, rgba(66, 153, 225, 0.1) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border-left: 6px solid var(--secondary);
+            position: relative;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .quote-text {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 70px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            display: inline-block;
+        }
+        
+        .footer-logo i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .title { font-size: 2.8rem; }
+            .content-wrapper { padding: 50px 40px; }
+            .section-title { font-size: 2rem; }
+            .cta-section { padding: 50px 30px; }
+            .business-grid, .principles-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.3rem; }
+            .subtitle { font-size: 1.2rem; }
+            .header { padding: 70px 0 50px; }
+            main { padding: 50px 0; }
+            .sticky-share { display: none; }
+            .content-wrapper { padding: 40px 30px; }
+            .author-highlight { flex-direction: column; text-align: center; }
+            .section-header { flex-direction: column; text-align: center; }
+            .cta-title { font-size: 2rem; }
+            .meta-info { gap: 15px; }
+            .meta-item { padding: 8px 18px; }
+            .share-buttons { gap: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .title { font-size: 2rem; }
+            .content-wrapper { padding: 30px 20px; }
+            .section-title { font-size: 1.7rem; }
+            .share-section { padding: 30px 20px; }
+            .cta-button { padding: 15px 35px; font-size: 1.1rem; }
+            .business-card, .principle-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Share -->
+    <div class="sticky-share">
+        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Partager sur Twitter">
+            <i class="fab fa-twitter"></i>
+        </button>
+        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="Partager sur LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </button>
+        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Partager sur Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </button>
+        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="Partager sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Lien copié avec succès !</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">Devenir le leader que les autres veulent suivre</h1>
+                <p class="subtitle">L'héritage entrepreneurial de Marcelin Charistal : Comment transformer des visions en réalités et inspirer une génération</p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>25 Mars 2024</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>15 min de lecture</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-star"></i>
+                        <span>Étude de Cas Avancée</span>
+                    </div>
+                </div>
+                
+                <!-- Partage principal -->
+                <div class="share-section">
+                    <div class="share-title">
+                        <i class="fas fa-share-alt"></i> Inspirez d'autres leaders, partagez cet article
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Auteur -->
+                <div class="author-highlight">
+                    <div class="author-avatar">MC</div>
+                    <div class="author-info">
+                        <h2>Marcelin Charistal</h2>
+                        <p class="author-title">Entrepreneur Innovateur • Investisseur • Auteur • Leader Visionnaire</p>
+                        <p>Depuis 2013, Marcelin Charistal a construit un empire entrepreneurial couvrant la tech, la finance, l'incubation de startups et l'édition. Son parcours unique démontre comment un leadership authentique peut transformer des idées en entreprises prospères tout en inspirant toute une génération d'entrepreneurs.</p>
+                        
+                        <div class="author-badges">
+                            <span class="badge entrepreneur">Entrepreneur Série</span>
+                            <span class="badge investor">Investisseur</span>
+                            <span class="badge author">Auteur Amazon</span>
+                            <span class="badge leader">Leader Visionnaire</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h2 class="section-title">Le leadership n'est pas un titre, c'est un héritage</h2>
+                    </div>
+                    
+                    <p>Dans un monde où le mot "leader" est souvent galvaudé, certaines personnes incarnent véritablement l'essence du leadership. Marcelin Charistal fait partie de ces rares individus dont le parc entrepreneurial démontre une compréhension profonde de ce que signifie réellement inspirer et guider les autres.</p>
+                    
+                    <div class="quote-box">
+                        <p class="quote-text">Un vrai leader ne crée pas des suiveurs, il crée d'autres leaders. Sa mission n'est pas d'être le plus brillant dans la pièce, mais de faire briller chacun des membres de son équipe.</p>
+                        <p class="quote-author">— Philosophie de leadership de Marcelin Charistal</p>
+                    </div>
+                    
+                    <p>De Food Xpress à BizScan360, en passant par ses ouvrages publiés sur Amazon, Charistal a systématiquement démontré qu'un leadership efficace combine vision stratégique, exécution rigoureuse et développement des personnes.</p>
+                </section>
+
+                <!-- Portfolio Entrepreneurial -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h2 class="section-title">L'écosystème entrepreneurial Charistal</h2>
+                    </div>
+                    
+                    <p>Le leadership se mesure à l'impact créé. En analysant le portfolio de Marcelin Charistal, on découvre une approche systémique de l'entrepreneuriat :</p>
+                    
+                    <div class="business-grid">
+                        <div class="business-card">
+                            <div class="business-year">2013</div>
+                            <div class="business-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <span class="business-tag">Production & Marketing</span>
+                            <h3 class="business-title">Charistal-Art Productions & Marketing</h3>
+                            <p>Première aventure entrepreneuriale, combinant création audiovisuelle et stratégies marketing innovantes. Une preuve précoce de sa capacité à identifier et combiner des compétences complémentaires.</p>
+                        </div>
+                        
+                        <div class="business-card">
+                            <div class="business-year">2018</div>
+                            <div class="business-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <span class="business-tag">Food Tech</span>
+                            <h3 class="business-title">Food Xpress</h3>
+                            <p>Lancement dans l'industrie alimentaire en pleine transformation numérique. Démonstration de sa capacité à s'adapter aux tendances du marché tout en apportant une innovation réelle.</p>
+                        </div>
+                        
+                        <div class="business-card">
+                            <div class="business-year">2020</div>
+                            <div class="business-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <span class="business-tag">Fintech Crypto</span>
+                            <h3 class="business-title">RichcoinXchange</h3>
+                            <p>Entrée dans le monde des cryptomonnaies avec une plateforme de vente et de transfert. Preuve de sa vision avant-gardiste et de sa compréhension des technologies émergentes.</p>
+                        </div>
+                        
+                        <div class="business-card">
+                            <div class="business-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <span class="business-tag">Incubation</span>
+                            <h3 class="business-title">NextTora</h3>
+                            <p>Startup incubateur démontrant son engagement à redonner à la communauté entrepreneuriale. Passage du rôle d'entrepreneur à celui de mentor et facilitateur.</p>
+                        </div>
+                        
+                        <div class="business-card">
+                            <div class="business-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <span class="business-tag">Micro-finance</span>
+                            <h3 class="business-title">KrediNou</h3>
+                            <p>Co-fondation d'une fintech de micro-finance, illustrant son engagement pour l'inclusion financière et l'impact social positif.</p>
+                        </div>
+                        
+                        <div class="business-card">
+                            <div class="business-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <span class="business-tag">Business Intelligence</span>
+                            <h3 class="business-title">BizScan360</h3>
+                            <p>En tant que fondateur et CEO, création d'une plateforme d'analyse business complète, synthétisant toutes ses expériences entrepreneuriales précédentes.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Héritage littéraire -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h2 class="section-title">L'héritage littéraire : De la pratique à la théorie</h2>
+                    </div>
+                    
+                    <p>Un leader complet ne se contente pas d'agir – il documente, réfléchit et partage ses connaissances. L'œuvre littéraire de Marcelin Charistal témoigne d'une profondeur intellectuelle rare chez les entrepreneurs :</p>
+                    
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <span class="book-year">2018</span>
+                            <h3 class="book-title">L'esprit du Capitalisme et de l'entrepreneuriat</h3>
+                            <p>Premier ouvrage publié sur Amazon, analysant les fondements philosophiques et pratiques de l'entrepreneuriat moderne. Une base théorique solide pour son parcours ultérieur.</p>
+                        </div>
+                        
+                        <div class="book-card">
+                            <span class="book-year">Avril 2025</span>
+                            <h3 class="book-title">Secure de Bag</h3>
+                            <p>Ouvrage pratique sur la gestion financière et la sécurité économique, démontrant son engagement pour l'éducation financière des entrepreneurs.</p>
+                        </div>
+                        
+                        <div class="book-card">
+                            <span class="book-year">À venir</span>
+                            <h3 class="book-title">Haïti un pays à l'image de son peuple</h3>
+                            <p>Projet littéraire ambitieux illustrant son engagement pour le développement et la compréhension de son héritage culturel et national.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box" style="background: linear-gradient(135deg, rgba(214, 158, 46, 0.1) 0%, rgba(245, 176, 65, 0.1) 100%); padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid var(--warning);">
+                        <p style="font-size: 1.1rem; font-weight: 500; color: var(--primary);">
+                            <i class="fas fa-lightbulb" style="color: var(--warning); margin-right: 10px;"></i>
+                            <strong>Leçon de leadership :</strong> L'écriture n'est pas seulement un moyen de partager des connaissances – c'est un outil de clarification de la pensée. En écrivant sur ses expériences, Charistal a affiné sa propre compréhension du leadership et de l'entrepreneuriat.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Principes de leadership -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h2 class="section-title">7 Principes de leadership inspirés de Marcelin Charistal</h2>
+                    </div>
+                    
+                    <div class="principles-grid">
+                        <div class="principle-card">
+                            <div class="principle-number">1</div>
+                            <h3 class="principle-title">La Vision Multi-Dimensionnelle</h3>
+                            <p>Ne pas se limiter à un seul secteur. Comme Charistal l'a démontré, un vrai leader voit les connexions entre différents domaines (tech, finance, édition) et crée des synergies.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">2</div>
+                            <h3 class="principle-title">L'Exécution Itérative</h3>
+                            <p>Commencer petit (Charistal-Art), apprendre, adapter, puis passer à l'échelle supérieure. Chaque entreprise prépare le terrain pour la suivante.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">3</div>
+                            <h3 class="principle-title">Le Partage des Connaissances</h3>
+                            <p>Un leader qui écrit des livres investit dans l'éducation des autres. C'est une marque de confiance et de générosité intellectuelle.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">4</div>
+                            <h3 class="principle-title">L'Adaptabilité Sectorielle</h3>
+                            <p>Passer de la production vidéo aux cryptomonnaies, puis à l'incubation de startups démontre une capacité remarquable à maîtriser de nouveaux domaines.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">5</div>
+                            <h3 class="principle-title">Le Mentorship Actif</h3>
+                            <p>Avec NextTora, transition naturelle de l'entrepreneuriat individuel au développement d'autres entrepreneurs. La véritable marque d'un leader mature.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">6</div>
+                            <h3 class="principle-title">L'Impact Social Intentionnel</h3>
+                            <p>KrediNou n'est pas juste une entreprise – c'est un outil d'inclusion financière. Un vrai leader mesure son succès à son impact positif sur la société.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-number">7</div>
+                            <h3 class="principle-title">La Synthèse des Expériences</h3>
+                            <p>BizScan360 représente l'intégration de toutes les leçons apprises. Un leader transforme ses expériences en systèmes reproductibles.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <div class="cta-content">
+                        <h2 class="cta-title">Inspiré par ce parcours de leadership ?</h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 25px; opacity: 0.95;">
+                            Téléchargez notre guide gratuit "Les 10 habitudes des leaders qui construisent des héritages durables" inspiré des principes de Marcelin Charistal
+                        </p>
+                        <a href="#" class="cta-button">
+                            <i class="fas fa-download"></i> Télécharger le Guide du Leader Visionnaire
+                        </a>
+                        <p style="margin-top: 25px; font-size: 0.95rem; opacity: 0.85;">
+                            Inclut : Checklist des compétences de leadership, templates de planification stratégique, et étude de cas approfondie
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-flag-checkered"></i>
+                        </div>
+                        <h2 class="section-title">Le véritable test du leadership</h2>
+                    </div>
+                    
+                    <p>Le parcours de Marcelin Charistal nous enseigne que le leadership authentique se mesure à plusieurs niveaux :</p>
+                    
+                    <div class="checklist" style="margin: 30px 0;">
+                        <li><strong>La longévité :</strong> Un parcours qui dure depuis 2013, évoluant et s'adaptant continuellement</li>
+                        <li><strong>L'impact sectoriel :</strong> Transformation réussie dans au moins 6 industries différentes</li>
+                        <li><strong>La transmission :</strong> Partage actif des connaissances via des livres et l'incubation</li>
+                        <li><strong>L'évolution personnelle :</strong> Passage de l'entrepreneur au leader, puis au mentor</li>
+                        <li><strong>L'héritage :</strong> Création de systèmes (BizScan360) qui survivront à l'individu</li>
+                    </div>
+                    
+                    <div class="quote-box" style="background: linear-gradient(135deg, rgba(56, 161, 105, 0.1) 0%, rgba(72, 187, 120, 0.1) 100%); border-left-color: var(--success);">
+                        <p class="quote-text">Un leader ne bâtit pas des entreprises – il bâtit des écosystèmes. Son succès ne se mesure pas à sa fortune personnelle, mais à la valeur qu'il crée pour les autres et aux leaders qu'il fait émerger.</p>
+                        <p class="quote-author">— L'héritage de leadership selon Charistal</p>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-weight: 500;">
+        Le leadership selon Marcelin Charistal n'est pas une destination, mais un voyage continu d'apprentissage, d'adaptation et de service. C'est cette philosophie qui transforme un entrepreneur en un véritable leader dont les autres veulent naturellement suivre les traces.
+    </p>
+</section>
+
+<!-- Partage final -->
+<div class="share-section">
+    <div class="share-title">
+        <i class="fas fa-hands-helping"></i> Aidez à inspirer la prochaine génération de leaders
+    </div>
+    <p style="margin-bottom: 25px; color: var(--gray);">Partagez cet article avec des entrepreneurs, des managers et des aspirants leaders qui pourraient bénéficier de ces leçons</p>
+    <div class="share-buttons">
+        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+            <i class="fab fa-twitter"></i>
+        </button>
+        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </button>
+        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </button>
+        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+</div>
+
+<!-- À propos de l'auteur de l'article -->
+<section class="section" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+    <div class="section-header">
+        <div class="section-icon">
+            <i class="fas fa-user-edit"></i>
+        </div>
+        <h2 class="section-title">À propos de l'auteur de cet article</h2>
+    </div>
+    
+    <div class="author-highlight" style="background: linear-gradient(135deg, rgba(66, 153, 225, 0.05) 0%, rgba(107, 70, 193, 0.05) 100%);">
+        <div class="author-avatar" style="background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);">
+            AJ
+        </div>
+        <div class="author-info">
+            <h2>Alex Johnson</h2>
+            <p class="author-title">Analyste en Leadership & Rédacteur Expert en Développement Personnel</p>
+            <p>Spécialisé dans l'étude des parcours entrepreneuriaux exceptionnels, j'analyse les patterns de réussite et les principes de leadership qui permettent aux individus de construire des héritages durables. Mon travail consiste à décoder les succès pour en faire des leçons accessibles à tous.</p>
+            <p>L'étude du parcours de Marcelin Charistal représente pour moi un cas d'école fascinant de leadership évolutif et d'entrepreneuriat systémique.</p>
+        </div>
+    </div>
+</section>
+</div>
+</div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-crown"></i> Leadership Insights
+            </div>
+            
+            <p style="opacity: 0.85; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+                Décryptage des parcours de leadership exceptionnels. Études de cas, analyses approfondies et ressources pour développer votre potentiel de leader.
+            </p>
+            
+            <div class="share-section" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); max-width: 800px; margin: 0 auto;">
+                <div class="share-title" style="color: white;">
+                    <i class="fas fa-share-alt"></i> Partagez cet héritage de leadership
+                </div>
+                <div class="share-buttons">
+                    <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </button>
+                    <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p style="margin-top: 60px; opacity: 0.6; font-size: 0.95rem;">
+                © 2024 Leadership Insights. Tous droits réservés.<br>
+                Cet article est une analyse indépendante basée sur le parcours public de Marcelin Charistal.
+            </p>
+            
+            <p style="margin-top: 20px; opacity: 0.5; font-size: 0.85rem;">
+                Les marques mentionnées (Food Xpress, Charistal-Art, RichcoinXchange, NextTora, KrediNou, BizScan360) sont la propriété de leurs détenteurs respectifs.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Variables globales
+    const articleUrl = window.location.href;
+    const articleTitle = "Devenir le leader que les autres veulent suivre : L'héritage de Marcelin Charistal";
+    const articleDescription = "Analyse du parcours de leadership de Marcelin Charistal : entrepreneur, investisseur, auteur et bâtisseur d'empire entrepreneurial. 7 principes de leadership prouvés.";
+    
+    // Fonctions de partage
+    function shareOnTwitter() {
+        const text = encodeURIComponent(`${articleTitle} - Étude de cas leadership inspirant`);
+        const url = encodeURIComponent(articleUrl);
+        const hashtags = encodeURIComponent("Leadership,Entrepreneuriat,MarcelinCharistal,SuccessStory,Business");
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, '_blank', 'width=600,height=400');
+    }
+    
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(articleUrl);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+    }
+    
+    function shareOnFacebook() {
+        const url = encodeURIComponent(articleUrl);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+    
+    function shareOnWhatsApp() {
+        const text = encodeURIComponent(`${articleTitle}\n\n${articleDescription}\n\n${articleUrl}`);
+        window.open(`https://wa.me/?text=${text}`, '_blank', 'width=600,height=600');
+    }
+    
+    function copyArticleLink() {
+        navigator.clipboard.writeText(articleUrl).then(() => {
+            showNotification('Lien copié dans le presse-papier !');
+        }).catch(err => {
+            console.error('Erreur lors de la copie : ', err);
+            showNotification('Erreur lors de la copie du lien');
+        });
+    }
+    
+    // Notification
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        
+        notificationText.textContent = message;
+        notification.style.display = 'block';
+        
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+    
+    // Animations au scroll
+    function initScrollAnimations() {
+        const businessCards = document.querySelectorAll('.business-card');
+        const principleCards = document.querySelectorAll('.principle-card');
+        const bookCards = document.querySelectorAll('.book-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Configuration initiale des cartes
+        businessCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+        
+        principleCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+        
+        bookCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+        
+        // Animation des sections
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.8s ease';
+            observer.observe(section);
+        });
+    }
+    
+    // Tooltips dynamiques
+    function initTooltips() {
+        const shareButtons = document.querySelectorAll('.share-btn');
+        
+        shareButtons.forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                const tooltip = this.getAttribute('data-tooltip');
+                if (tooltip && !this.querySelector('.tooltip-bubble')) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'tooltip-bubble';
+                    bubble.textContent = tooltip;
+                    bubble.style.position = 'absolute';
+                    bubble.style.left = '120%';
+                    bubble.style.top = '50%';
+                    bubble.style.transform = 'translateY(-50%)';
+                    bubble.style.background = 'var(--dark)';
+                    bubble.style.color = 'white';
+                    bubble.style.padding = '10px 15px';
+                    bubble.style.borderRadius = '8px';
+                    bubble.style.fontSize = '0.9rem';
+                    bubble.style.whiteSpace = 'nowrap';
+                    bubble.style.zIndex = '1001';
+                    bubble.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                    this.appendChild(bubble);
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                const bubble = this.querySelector('.tooltip-bubble');
+                if (bubble) {
+                    bubble.remove();
+                }
+            });
+        });
+    }
+    
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+        initTooltips();
+        
+        // Masquer la sticky share sur mobile
+        if (window.innerWidth < 768) {
+            document.querySelector('.sticky-share').style.display = 'none';
+        }
+        
+        // Suivi des clics sur les boutons de partage
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.classList[1];
+                console.log(`Article partagé sur ${platform}`);
+                // Ici, vous pourriez ajouter Google Analytics ou autre système de tracking
+            });
+        });
+        
+        // Animation du CTA
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', () => {
+                ctaButton.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            ctaButton.addEventListener('mouseleave', () => {
+                ctaButton.style.transform = 'translateY(0) scale(1)';
+            });
+        }
+        
+        // Effet de parallaxe sur le header
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const header = document.querySelector('.header');
+            
+            if (header && scrollPosition < 500) {
+                header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+            }
+        });
+    });
+    
+    // Effet de typewriter pour le titre (optionnel)
+    function typeWriterEffect() {
+        const title = document.querySelector('.title');
+        if (title) {
+            const text = title.textContent;
+            title.textContent = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    title.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            
+            // Décommenter la ligne suivante pour activer l'effet
+            // setTimeout(type, 1000);
+        }
+    }
+    
+    // Appeler la fonction si vous voulez l'effet typewriter
+    // typeWriterEffect();
+</script>
+</body>
+</html>
