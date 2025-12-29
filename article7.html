@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Problème de l'Échange de Clés Secrètes : Analyse de l'Algorithme Diffie-Hellman | NextTora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2d3748;
+            --secondary: #2b6cb0;
+            --accent: #4299e1;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --gray: #718096;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 22px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Sticky Share */
+        .sticky-share {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            animation: slideInLeft 0.6s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%) translateY(-50%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) translateY(-50%);
+                opacity: 1;
+            }
+        }
+        
+        /* Share Buttons */
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .share-btn:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 120%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            z-index: 1001;
+        }
+        
+        .twitter { background: #1da1f2; }
+        .linkedin { background: #0077b5; }
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25d366; }
+        .copy { background: #805ad5; }
+        
+        /* Share Section */
+        .share-section {
+            margin: 50px 0;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(43, 108, 176, 0.05) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--border);
+        }
+        
+        .share-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideInRight 0.4s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Main Content */
+        main {
+            padding: 70px 0;
+        }
+        
+        .content-wrapper {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        /* Author Section */
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(43, 108, 176, 0.05) 100%);
+            border-radius: 20px;
+            border-left: 6px solid var(--secondary);
+        }
+        
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .author-info h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .author-title {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 70px;
+            padding-bottom: 50px;
+            border-bottom: 3px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .section-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(43, 108, 176, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '⚡';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid var(--warning);
+        }
+        
+        /* Mathematical Notation */
+        .math-box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid var(--border);
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+        
+        .formula {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Code Example */
+        .code-example {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .code-comment {
+            color: #718096;
+        }
+        
+        .code-keyword {
+            color: #4299e1;
+        }
+        
+        .code-function {
+            color: #68d391;
+        }
+        
+        .code-number {
+            color: #f6ad55;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+        
+        .timeline-year {
+            position: absolute;
+            left: -70px;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        /* Visual Demonstration */
+        .visual-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .demo-step {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border);
+        }
+        
+        .demo-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 70px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            display: inline-block;
+        }
+        
+        .footer-logo i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .title { font-size: 2.8rem; }
+            .content-wrapper { padding: 50px 40px; }
+            .section-title { font-size: 2rem; }
+            .cta-section { padding: 50px 30px; }
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.3rem; }
+            .subtitle { font-size: 1.2rem; }
+            .header { padding: 70px 0 50px; }
+            main { padding: 50px 0; }
+            .sticky-share { display: none; }
+            .content-wrapper { padding: 40px 30px; }
+            .author-section { flex-direction: column; text-align: center; }
+            .section-header { flex-direction: column; text-align: center; }
+            .cta-title { font-size: 2rem; }
+            .meta-info { gap: 15px; }
+            .meta-item { padding: 8px 18px; }
+        }
+        
+        @media (max-width: 480px) {
+            .title { font-size: 2rem; }
+            .content-wrapper { padding: 30px 20px; }
+            .section-title { font-size: 1.7rem; }
+            .share-section { padding: 30px 20px; }
+            .cta-button { padding: 15px 35px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Share -->
+    <div class="sticky-share">
+        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+            <i class="fab fa-twitter"></i>
+        </button>
+        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </button>
+        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </button>
+        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Lien copié avec succès !</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">Le Problème de l'Échange de Clés Secrètes</h1>
+                <p class="subtitle">Analyse approfondie de l'algorithme Diffie-Hellman : Comment échanger des secrets sur un canal public</p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>30 Mars 2024</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>18 min de lecture</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-lock"></i>
+                        <span>Cryptographie Avancée</span>
+                    </div>
+                </div>
+                
+                <!-- Partage principal -->
+                <div class="share-section">
+                    <div class="share-title">
+                        <i class="fas fa-share-alt"></i> Partagez cet article avec la communauté tech
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Auteur -->
+                <div class="author-section">
+                    <div class="author-avatar">MC</div>
+                    <div class="author-info">
+                        <h2>Marcelin Charistal</h2>
+                        <p class="author-title">Expert en Cybersécurité • Fondateur de NextTora • Entrepreneur Tech</p>
+                        <p>Cet article fait partie de la collection #YONKREYÒLKONSYAN, initialement publié en Avril 2020. Une analyse technique approfondie des fondements mathématiques de la cryptographie moderne.</p>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h2 class="section-title">Le Problème Historique</h2>
+                    </div>
+                    
+                    <p>Depuis plusieurs siècles, le problème d'échange de codes secrets a toujours été considéré comme une difficulté majeure en cryptographie. Les ambassades et les États-majors ont fait d'importants efforts dans ce sens, tandis que les pirates cherchaient constamment à dévier ces échanges.</p>
+                    
+                    <div class="highlight-box">
+                        <p>Avec l'utilisation des ordinateurs, de la télétransmission et de la dématérialisation de l'information, le problème apparaît sous un angle différent. Dans les années 1970, un chercheur indépendant, Whitfield Diffie, réfléchissait aux moyens par lesquels deux utilisateurs du réseau ARPANET pouvaient échanger des messages électroniques chiffrés sans jamais se rencontrer physiquement pour choisir un code secret commun.</p>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1970</div>
+                            <h3>La Réflexion Initiale</h3>
+                            <p>Whitfield Diffie commence à réfléchir au problème d'échange de clés sur ARPANET, l'ancêtre d'Internet.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-year">1974</div>
+                            <h3>La Conférence Décisive</h3>
+                            <p>Diffie présente une conférence au centre de recherche Thomas J. Watson d'IBM à Yorktown Heights, où il découvre que Martin Hellman de l'université Stanford travaille sur le même problème.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fondements Mathématiques -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-square-root-alt"></i>
+                        </div>
+                        <h2 class="section-title">Fondements Mathématiques</h2>
+                    </div>
+                    
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">Arithmétique Modulaire : La Base</h3>
+                    
+                    <p>La solution de Diffie et Hellman repose sur un chapitre de l'arithmétique que les informaticiens utilisent abondamment : l'arithmétique modulaire, une arithmétique basée sur les classes d'équivalence modulo n.</p>
+                    
+                    <div class="math-box">
+                        <h4 style="color: var(--secondary); margin-bottom: 15px;">Division Euclidienne :</h4>
+                        <p>a ÷ b → a = b × k + r</p>
+                        <p>Où k est le quotient et r le reste de la division.</p>
+                        <p class="formula">13 ÷ 3 → 13 = 3 × 4 + 1</p>
+                    </div>
+                    
+                    <div class="math-box">
+                        <h4 style="color: var(--secondary); margin-bottom: 15px;">Classes d'Équivalence Modulo 3 :</h4>
+                        <p>4 ≡ 1 mod 3 (car 4 = 3 × 1 + 1)</p>
+                        <p>7 ≡ 1 mod 3 (car 7 = 3 × 2 + 1)</p>
+                        <p>10 ≡ 1 mod 3 (car 10 = 3 × 3 + 1)</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4 style="color: var(--warning); margin-bottom: 15px;">⚠️ Condition Importante :</h4>
+                        <p>Pour que la multiplication modulaire conserve la structure de groupe, n doit être un nombre premier. Sinon, on obtient des diviseurs de zéro qui détruisent cette structure.</p>
+                        <p class="formula">4 × 6 (mod 12) = 24 mod 12 = 0 mod 12</p>
+                    </div>
+                </section>
+
+                <!-- L'Algorithme -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h2 class="section-title">L'Algorithme Diffie-Hellman</h2>
+                    </div>
+                    
+                    <p>Le protocole de l'algorithme Diffie-Hellman utilise la fonction :</p>
+                    
+                    <div class="math-box" style="text-align: center;">
+                        <p class="formula">K = W<sup>X</sup> mod P</p>
+                        <p>Où P est un nombre premier et W < P.</p>
+                    </div>
+                    
+                    <div class="visual-demo">
+                        <div class="demo-step">
+                            <div class="demo-number">1</div>
+                            <h3>Paramètres Publics</h3>
+                            <p>W = 7 (base)</p>
+                            <p>P = 11 (nombre premier)</p>
+                        </div>
+                        
+                        <div class="demo-step">
+                            <div class="demo-number">2</div>
+                            <h3>Secrets Privés</h3>
+                            <p>Alex : A = 3</p>
+                            <p>Boris : B = 6</p>
+                        </div>
+                        
+                        <div class="demo-step">
+                            <div class="demo-number">3</div>
+                            <h3>Calculs Intermédiaires</h3>
+                            <p>α = 7³ mod 11 = 2</p>
+                            <p>β = 7⁶ mod 11 = 4</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-example">
+                        <span class="code-comment">// Échange Diffie-Hellman simplifié</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">W</span> = <span class="code-number">7</span>; <span class="code-comment">// Base publique</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">P</span> = <span class="code-number">11</span>; <span class="code-comment">// Nombre premier public</span><br><br>
+                        
+                        <span class="code-comment">// Alex choisit un secret privé</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">secretAlex</span> = <span class="code-number">3</span>;<br>
+                        <span class="code-keyword">const</span> <span class="code-function">publicAlex</span> = <span class="code-function">modPow</span>(W, secretAlex, P); <span class="code-comment">// = 2</span><br><br>
+                        
+                        <span class="code-comment">// Boris choisit un secret privé</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">secretBoris</span> = <span class="code-number">6</span>;<br>
+                        <span class="code-keyword">const</span> <span class="code-function">publicBoris</span> = <span class="code-function">modPow</span>(W, secretBoris, P); <span class="code-comment">// = 4</span><br><br>
+                        
+                        <span class="code-comment">// Échange public des valeurs calculées</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">sharedSecretAlex</span> = <span class="code-function">modPow</span>(publicBoris, secretAlex, P); <span class="code-comment">// = 9</span><br>
+                        <span class="code-keyword">const</span> <span class="code-function">sharedSecretBoris</span> = <span class="code-function">modPow</span>(publicAlex, secretBoris, P); <span class="code-comment">// = 9</span>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h4 style="color: var(--accent); margin-bottom: 15px;">🔑 Le Secret Partagé :</h4>
+                        <p>Alex calcule : β<sup>A</sup> mod P = 4³ mod 11 = 64 mod 11 = 9</p>
+                        <p>Boris calcule : α<sup>B</sup> mod P = 2⁶ mod 11 = 64 mod 11 = 9</p>
+                        <p><strong>Les deux parties obtiennent le même secret partagé (9) sans jamais l'avoir transmis sur le canal !</strong></p>
+                    </div>
+                </section>
+
+                <!-- La Sécurité -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="section-title">Pourquoi C'est Sécurisé ?</h2>
+                    </div>
+                    
+                    <p>Supposons qu'un attaquant, Jean, intercepte les messages publics α = 2 et β = 4. Pour calculer le secret partagé S, il doit résoudre :</p>
+                    
+                    <div class="math-box" style="text-align: center;">
+                        <p class="formula">7<sup>B</sup> ≡ 4 mod 11</p>
+                        <p>Pour trouver B, ce qui revient à calculer :</p>
+                        <p class="formula">B = log<sub>7</sub> 4 mod 11</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4 style="color: var(--warning); margin-bottom: 15px;">💡 Le Problème du Logarithme Discret :</h4>
+                        <p>Dans le monde des nombres réels, la solution serait simple : B = log(4)/log(7). Mais dans le monde des classes d'équivalence modulo n, ce problème n'a pas de solution simple connue.</p>
+                        <p>C'est ce qu'on appelle le <strong>problème du logarithme discret</strong>, sur lequel repose la sécurité de l'algorithme Diffie-Hellman.</p>
+                    </div>
+                    
+                    <div class="visual-demo">
+                        <div class="demo-step">
+                            <div class="demo-number">🎯</div>
+                            <h3>Facile dans un sens</h3>
+                            <p>Calculer 7⁶ mod 11 = 4 est rapide et facile pour un ordinateur.</p>
+                        </div>
+                        
+                        <div class="demo-step">
+                            <div class="demo-number">🚫</div>
+                            <h3>Difficile dans l'autre</h3>
+                            <p>Trouver l'exposant B tel que 7ᴮ ≡ 4 mod 11 est extrêmement difficile pour de grandes valeurs de P.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications Modernes -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h2 class="section-title">Applications Contemporaines</h2>
+                    </div>
+                    
+                    <p>L'algorithme Diffie-Hellman a ouvert la voie à des développements majeurs en cryptographie :</p>
+                    
+                    <div class="highlight-box">
+                        <h4 style="color: var(--success); margin-bottom: 15px;">🌐 Protocoles Sécurisés :</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>SSL/TLS :</strong> Sécurisation des connexions web (HTTPS)</li>
+                            <li><strong>SSH :</strong> Connexions sécurisées aux serveurs</li>
+                            <li><strong>IPSec :</strong> Sécurisation des réseaux VPN</li>
+                            <li><strong>Signal Protocol :</strong> Messagerie chiffrée de bout en bout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="math-box">
+                        <h4 style="color: var(--secondary); margin-bottom: 15px;">L'Héritage : Cryptographie à Clé Publique</h4>
+                        <p>L'inspiration de Diffie-Hellman a conduit à une découverte encore plus importante : la cryptographie à clé publique, où une paire de clés (publique/privée) permet à quiconque de chiffrer un message, mais seule la clé privée correspondante peut le déchiffrer.</p>
+                        <p class="formula" style="margin-top: 15px;">Message chiffré = f(clé publique, message clair)</p>
+                        <p class="formula">Message clair = g(clé privée, message chiffré)</p>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <div class="cta-content">
+                        <h2 class="cta-title">Passionné par la Cryptographie ?</h2>
+                        <p style="font-size: 1.3rem; margin-bottom: 25px; opacity: 0.95;">
+                            Rejoignez la communauté NextTora pour explorer les dernières innovations en sécurité informatique et développement technologique.
+                        </p>
+                        <a href="https://nexttora.com/cryptography-workshop" class="cta-button">
+                            <i class="fas fa-rocket"></i> Atelier Cryptographie NextTora
+                        </a>
+                        <p style="margin-top: 25px; font-size: 0.95rem; opacity: 0.85;">
+                            Apprenez à implémenter des algorithmes cryptographiques modernes avec nos experts
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-flag-checkered"></i>
+                        </div>
+                        <h2 class="section-title">Conclusion</h2>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p>Sans aucun doute, l'algorithme Diffie-Hellman représente une découverte majeure en cryptographie. Il offre aux acteurs des cryptosystèmes la possibilité d'échanger un code secret sans que celui-ci ne doive circuler sur tout le réseau.</p>
+                        <p style="margin-top: 20px; font-weight: 600;">Mais une autre découverte, encore plus importante, s'inspire de ce principe : un cryptosystème basé sur une paire de clés où l'une sert au chiffrement (clé publique) et l'autre au déchiffrement (clé privée), la clé publique étant publiée dans un annuaire accessible à tous !</p>
+                    </div>
+                    
+                    <div class="math-box" style="margin-top: 30px; background: linear-gradient(135deg, rgba(56, 161, 105, 0.1) 0%, rgba(72, 187, 120, 0.1) 100%); border-left-color: var(--success);">
+                        <h4 style="color: var(--success); margin-bottom: 15px;">📚 Sources Documentaires :</h4>
+                        <ol style="margin-left: 20px; line-height: 2;">
+                            <li>Information Security: Principles and Methods</li>
+                            <li>System Programming in C with Linux</li>
+                            <li>Writing Information Security Policies</li>
+                        </ol>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-style: italic; color: var(--gray);">
+                        Article original : Marcelin Charistal V 2.0 and next Big Thing<br>
+                        Collection : #YONKREYÒLKONSYAN - Avril 2020
+                    </p>
+                </section>
+
+                <!-- Partage final -->
+                <div class="share-section">
+                    <div class="share-title">
+                        <i class="fas fa-hands-helping"></i> Contribuez à la diffusion du savoir technique
+                    </div>
+                    <p style="margin-bottom: 25px; color: var(--gray);">Partagez cet article avec des développeurs, des étudiants en cryptographie et des passionnés de sécurité informatique</p>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-lock"></i> NextTora Security Lab
+                </div>
+                
+                <p style="opacity: 0.85; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+                    Incubateur de startups spécialisé en cybersécurité et technologies de l'information. Nous formons la prochaine génération d'experts en sécurité informatique.
+                </p>
+                
+                <div class="share-section" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); max-width: 800px; margin: 0 auto;">
+                    <div class="share-title" style="color: white;">
+                        <i class="fas fa-share-alt"></i> Partagez ces connaissances cryptographiques
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 60px; opacity: 0.6; font-size: 0.95rem;">
+                    © 2024 NextTora Incubator. Tous droits réservés.<br>
+                    Article technique - À des fins éducatives uniquement.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        const articleUrl = window.location.href;
+        const articleTitle = "Le Problème de l'Échange de Clés Secrètes : Analyse de l'Algorithme Diffie-Hellman";
+        const articleDescription = "Étude technique approfondie de l'algorithme Diffie-Hellman, fondement mathématique de la cryptographie moderne et des échanges sécurisés sur Internet.";
+        
+        // Fonctions de partage
+        function shareOnTwitter() {
+            const text = encodeURIComponent(`${articleTitle} - NextTora Security Lab`);
+            const url = encodeURIComponent(articleUrl);
+            const hashtags = encodeURIComponent("Cryptographie,Sécurité,DiffieHellman,NextTora,Cybersécurité");
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(articleUrl);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(articleUrl);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent(`${articleTitle}\n\n${articleDescription}\n\n${articleUrl}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank', 'width=600,height=600');
+        }
+        
+        function copyArticleLink() {
+            navigator.clipboard.writeText(articleUrl).then(() => {
+                showNotification('Lien copié dans le presse-papier !');
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+                showNotification('Erreur lors de la copie du lien');
+            });
+        }
+        
+        // Notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Animations au scroll
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const demoSteps = document.querySelectorAll('.demo-step');
+            const mathBoxes = document.querySelectorAll('.math-box');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Configuration initiale
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease';
+                observer.observe(section);
+            });
+            
+            demoSteps.forEach(step => {
+                step.style.opacity = '0';
+                step.style.transform = 'translateY(20px)';
+                step.style.transition = 'all 0.6s ease';
+                observer.observe(step);
+            });
+            
+            mathBoxes.forEach(box => {
+                box.style.opacity = '0';
+                box.style.transform = 'translateY(20px)';
+                box.style.transition = 'all 0.6s ease';
+                observer.observe(box);
+            });
+        }
+        
+        // Tooltips dynamiques
+        function initTooltips() {
+            const shareButtons = document.querySelectorAll('.share-btn');
+            
+            shareButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    const tooltip = this.getAttribute('data-tooltip');
+                    if (tooltip && !this.querySelector('.tooltip-bubble')) {
+                        const bubble = document.createElement('div');
+                        bubble.className = 'tooltip-bubble';
+                        bubble.textContent = tooltip;
+                        bubble.style.position = 'absolute';
+                        bubble.style.left = '120%';
+                        bubble.style.top = '50%';
+                        bubble.style.transform = 'translateY(-50%)';
+                        bubble.style.background = 'var(--dark)';
+                        bubble.style.color = 'white';
+                        bubble.style.padding = '10px 15px';
+                        bubble.style.borderRadius = '8px';
+                        bubble.style.fontSize = '0.9rem';
+                        bubble.style.whiteSpace = 'nowrap';
+                        bubble.style.zIndex = '1001';
+                        bubble.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                        this.appendChild(bubble);
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    const bubble = this.querySelector('.tooltip-bubble');
+                    if (bubble) {
+                        bubble.remove();
+                    }
+                });
+            });
+        }
+        
+        // Simulation Diffie-Hellman interactive
+        function initDiffieHellmanSimulation() {
+            const simulateButton = document.createElement('button');
+            simulateButton.innerHTML = '<i class="fas fa-play-circle"></i> Simuler l\'échange Diffie-Hellman';
+            simulateButton.style.cssText = `
+                display: block;
+                margin: 30px auto;
+                padding: 15px 30px;
+                background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            `;
+            
+            simulateButton.onmouseenter = () => {
+                simulateButton.style.transform = 'translateY(-3px)';
+                simulateButton.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+            };
+            
+            simulateButton.onmouseleave = () => {
+                simulateButton.style.transform = 'translateY(0)';
+                simulateButton.style.boxShadow = 'none';
+            };
+            
+            simulateButton.onclick = () => {
+                // Simple simulation pédagogique
+                alert('Simulation Diffie-Hellman :\n\n' +
+                      '1. Base publique : W = 7\n' +
+                      '2. Nombre premier : P = 11\n' +
+                      '3. Secret d\'Alex : A = 3 → α = 7³ mod 11 = 2\n' +
+                      '4. Secret de Boris : B = 6 → β = 7⁶ mod 11 = 4\n' +
+                      '5. Alex calcule : βᴬ mod P = 4³ mod 11 = 9\n' +
+                      '6. Boris calcule : αᴮ mod P = 2⁶ mod 11 = 9\n\n' +
+                      '✅ Secret partagé : 9 (jamais transmis sur le réseau !)');
+            };
+            
+            // Ajouter le bouton après la section de l'algorithme
+            const algorithmSection = document.querySelector('.section:nth-child(4)');
+            if (algorithmSection) {
+                algorithmSection.appendChild(simulateButton);
+            }
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+            initTooltips();
+            initDiffieHellmanSimulation();
+            
+            // Masquer la sticky share sur mobile
+            if (window.innerWidth < 768) {
+                document.querySelector('.sticky-share').style.display = 'none';
+            }
+            
+            // Effet de parallaxe sur le header
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const header = document.querySelector('.header');
+                
+                if (header && scrollPosition < 500) {
+                    header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
