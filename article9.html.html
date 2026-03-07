@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrediNou.com - La Super-App Africaine Tout-en-Un</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #34d399;
+            --secondary: #3b82f6;
+            --secondary-dark: #2563eb;
+            --accent: #8b5cf6;
+            --accent-dark: #7c3aed;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            background: rgba(255,255,255,0.15);
+            padding: 15px 40px;
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            display: inline-block;
+        }
+        
+        .logo span {
+            color: var(--dark);
+            background: white;
+            padding: 5px 15px;
+            border-radius: 40px;
+            margin-left: 10px;
+            font-size: 3rem;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 22px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* Sticky Share */
+        .sticky-share {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            animation: slideInLeft 0.6s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%) translateY(-50%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) translateY(-50%);
+                opacity: 1;
+            }
+        }
+        
+        /* Share Buttons */
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .share-btn:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 120%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            z-index: 1001;
+        }
+        
+        .twitter { background: #1da1f2; }
+        .linkedin { background: #0077b5; }
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25d366; }
+        .copy { background: var(--accent); }
+        
+        /* Share Section */
+        .share-section {
+            margin: 50px 0;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .share-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideInRight 0.4s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Main Content */
+        main {
+            padding: 70px 0;
+        }
+        
+        .content-wrapper {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        /* Badge */
+        .platform-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Author Section */
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 25px;
+            border-left: 6px solid var(--primary);
+        }
+        
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .author-info h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .author-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 70px;
+            padding-bottom: 50px;
+            border-bottom: 3px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .section-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+        
+        .section-title span {
+            color: var(--primary);
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+            border-color: var(--primary);
+        }
+        
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .service-tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        /* Feature Highlight */
+        .feature-highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .feature-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .feature-text {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        .feature-percentage {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        
+        /* Sub-services Grid */
+        .sub-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .sub-service-item {
+            background: var(--light);
+            padding: 20px 15px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .sub-service-item:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .sub-service-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .sub-service-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        /* Partnership Cards */
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .partnership-card {
+            background: linear-gradient(135deg, var(--light) 0%, white 100%);
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            border: 2px dashed var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .partnership-card:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            transform: translateY(-5px);
+        }
+        
+        .partnership-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .partnership-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .partnership-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .partnership-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        /* API Section */
+        .api-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 50px;
+            border-radius: 25px;
+            margin: 40px 0;
+            border: 2px solid var(--secondary);
+        }
+        
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .api-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .api-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .api-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* Agent Section */
+        .agent-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            margin: 50px 0;
+            text-align: center;
+        }
+        
+        .agent-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .agent-stat {
+            text-align: center;
+        }
+        
+        .agent-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .agent-stat-label {
+            opacity: 0.9;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            animation: none;
+        }
+        
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: white;
+            display: inline-block;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .title { font-size: 2.8rem; }
+            .content-wrapper { padding: 50px 40px; }
+            .section-title { font-size: 2rem; }
+            .feature-highlight { padding: 50px 30px; }
+            .agent-section { padding: 50px 30px; }
+            .partnership-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.3rem; }
+            .logo { font-size: 3rem; }
+            .logo span { font-size: 2.2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .header { padding: 70px 0 50px; }
+            main { padding: 50px 0; }
+            .sticky-share { display: none; }
+            .content-wrapper { padding: 40px 30px; }
+            .author-section { flex-direction: column; text-align: center; }
+            .section-header { flex-direction: column; text-align: center; }
+            .services-grid { grid-template-columns: 1fr; }
+            .agent-stats { gap: 30px; }
+            .meta-info { gap: 15px; }
+            .meta-item { padding: 8px 18px; }
+        }
+        
+        @media (max-width: 480px) {
+            .title { font-size: 2rem; }
+            .logo { font-size: 2.5rem; }
+            .logo span { font-size: 1.8rem; }
+            .content-wrapper { padding: 30px 20px; }
+            .section-title { font-size: 1.7rem; }
+            .share-section { padding: 30px 20px; }
+            .service-card { padding: 25px; }
+            .feature-title { font-size: 2rem; }
+            .partnership-card { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Share -->
+    <div class="sticky-share">
+        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+            <i class="fab fa-twitter"></i>
+        </button>
+        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </button>
+        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </button>
+        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Lien copié avec succès !</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-wrapper">
+                    <div class="logo">
+                        KrediNou<span>.com</span>
+                    </div>
+                </div>
+                
+                <h1 class="title">La Super-App Africaine Tout-en-Un</h1>
+                <p class="subtitle">Finances, Livraison, Transport, Streaming, Gaming, APIs, Marketplace et Opportunités d'emploi - Tous vos services quotidiens dans une seule application</p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>7 Avril 2024</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10 min de lecture</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Partenariats Ouverts</span>
+                    </div>
+                </div>
+                
+                <!-- Partage principal -->
+                <div class="share-section">
+                    <div class="share-title">
+                        <i class="fas fa-share-alt"></i> Partagez cette révolution avec votre réseau
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Présentation -->
+                <div class="author-section">
+                    <div class="author-avatar">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="author-info">
+                        <h2>KrediNou.com : L'Écosystème Digital Complet</h2>
+                        <p class="author-title">Une plateforme multi-services où les utilisateurs accèdent à tout depuis un seul endroit</p>
+                        <p>KrediNou.com n'est pas qu'un simple site web - c'est un écosystème digital complet qui révolutionne la façon dont les Africains interagissent avec les services en ligne. De la finance à la livraison de repas, en passant par le transport, le divertissement, le gaming et l'emploi, tout est désormais accessible en un clic. Et nous recherchons activement des partenaires pour grandir ensemble !</p>
+                    </div>
+                </div>
+
+                <!-- Feature Highlight: Tout-en-Un -->
+                <div class="feature-highlight">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h2 class="feature-title">Une Plateforme, Une Infinité de Possibilités</h2>
+                        <p class="feature-text">Fini la multiplication des applications et des comptes. KrediNou centralise tous vos besoins quotidiens dans une interface unique, intuitive et sécurisée.</p>
+                    </div>
+                </div>
+
+                <!-- Services Financiers -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h2 class="section-title"><span>Services</span> Financiers Complets</h2>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-money-bill-transfer"></i>
+                            </div>
+                            <h3 class="service-title">Transfert d'Argent</h3>
+                            <p class="service-desc">Envoyez et recevez de l'argent en toute sécurité, partout dans le monde. Transactions instantanées avec des frais compétitifs.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">International</span>
+                                <span class="service-tag">Local</span>
+                                <span class="service-tag">Instantané</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3 class="service-title">Prêts Hypothécaires</h3>
+                            <p class="service-desc">Financez l'achat de votre maison avec nos prêts hypothécaires à taux fixe. Des mensualités stables et prévisibles pour réaliser votre rêve immobilier.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Taux fixe</span>
+                                <span class="service-tag">Jusqu'à 25 ans</span>
+                                <span class="service-tag">Simulation gratuite</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3 class="service-title">Échange de Devises</h3>
+                            <p class="service-desc">Convertissez vos devises en euros, dollars et autres au meilleur taux du marché. Transactions transparentes et rapides.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Taux compétitifs</span>
+                                <span class="service-tag">Sécurisé</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-futbol"></i>
+                            </div>
+                            <h3 class="service-title">Recharge 1xBet & Retrait</h3>
+                            <p class="service-desc">Rechargez votre compte 1xBet instantanément et effectuez vos retraits en toute simplicité. Profitez de vos paris sportifs sans attendre.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Instantané</span>
+                                <span class="service-tag">Retrait facile</span>
+                                <span class="service-tag">Sécurisé</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services de Restauration et Transport -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h2 class="section-title"><span>KrediFoods</span> & <span>KrediTaxi</span></h2>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-pizza-slice"></i>
+                            </div>
+                            <h3 class="service-title">KrediFoods</h3>
+                            <p class="service-desc">Commandez vos repas préférés des meilleurs restaurants. Comme Uber Eats ou DoorDash, mais pensé pour l'Afrique.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Livraison rapide</span>
+                                <span class="service-tag">Restaurants locaux</span>
+                                <span class="service-tag">Paiement sécurisé</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-taxi"></i>
+                            </div>
+                            <h3 class="service-title">KrediTaxi</h3>
+                            <p class="service-desc">Déplacez-vous facilement avec notre service VTC. Comme Uber, Didi ou InDrive, avec des chauffeurs vérifiés et des tarifs transparents.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Courses urbaines</span>
+                                <span class="service-tag">Chauffeurs vérifiés</span>
+                                <span class="service-tag">Prix fixes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section Partenariats -->
+                    <div class="partnership-grid">
+                        <div class="partnership-card">
+                            <div class="partnership-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3 class="partnership-title">Devenez Chauffeur KrediTaxi</h3>
+                            <p>Vous avez une voiture et souhaitez générer des revenus supplémentaires ? Rejoignez notre réseau de chauffeurs partenaires et bénéficiez de courses régulières.</p>
+                            <a href="#" class="partnership-btn">
+                                <i class="fas fa-handshake"></i> Devenir chauffeur
+                            </a>
+                        </div>
+                        
+                        <div class="partnership-card">
+                            <div class="partnership-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3 class="partnership-title">Propriétaire de Restaurant</h3>
+                            <p>Augmentez votre visibilité et vos ventes en rejoignant KrediFoods. Des milliers de clients potentiels à portée de clic.</p>
+                            <a href="#" class="partnership-btn">
+                                <i class="fas fa-handshake"></i> Réjoindre KrediFoods
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Divertissement et Gaming -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <h2 class="section-title"><span>Streaming</span> & <span>Gaming</span></h2>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <h3 class="service-title">Abonnements Streaming</h3>
+                            <p class="service-desc">Accédez à toutes les plateformes de streaming depuis un seul compte :</p>
+                            <div class="sub-services-grid">
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fab fa-netflix"></i></div>
+                                    <div class="sub-service-name">Netflix</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fab fa-amazon"></i></div>
+                                    <div class="sub-service-name">Prime Video</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fab fa-disney"></i></div>
+                                    <div class="sub-service-name">Disney+</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fab fa-apple"></i></div>
+                                    <div class="sub-service-name">Apple TV+</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h3 class="service-title">Gaming</h3>
+                            <p class="service-desc">Rechargez vos jeux préférés et abonnements gaming :</p>
+                            <div class="service-tags" style="margin-top: 15px;">
+                                <span class="service-tag">Free Fire</span>
+                                <span class="service-tag">PUBG Mobile</span>
+                                <span class="service-tag">Call of Duty</span>
+                                <span class="service-tag">Xbox Game Pass</span>
+                                <span class="service-tag">PlayStation Plus</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="service-title">Outils AI & Créatifs Pro</h3>
+                            <p class="service-desc">Accédez aux meilleurs outils d'intelligence artificielle et logiciels créatifs :</p>
+                            <div class="sub-services-grid">
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fas fa-brain"></i></div>
+                                    <div class="sub-service-name">Gemini</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fas fa-comment-dots"></i></div>
+                                    <div class="sub-service-name">Claude</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fas fa-paint-brush"></i></div>
+                                    <div class="sub-service-name">Canva Pro</div>
+                                </div>
+                                <div class="sub-service-item">
+                                    <div class="sub-service-icon"><i class="fas fa-camera"></i></div>
+                                    <div class="sub-service-name">Adobe Creative</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Opportunités d'Emploi et Agents -->
+                <section class="agent-section">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Devenez Agent KrediNou</h2>
+                    <p style="font-size: 1.3rem; margin-bottom: 30px; opacity: 0.95;">Gagnez de l'argent avec votre smartphone. N'importe qui peut devenir agent KrediNou !</p>
+                    
+                    <div class="agent-stats">
+                        <div class="agent-stat">
+                            <div class="agent-stat-number">10%</div>
+                            <div class="agent-stat-label">Commission sur tous les services vendus</div>
+                        </div>
+                        <div class="agent-stat">
+                            <div class="agent-stat-number">1000+</div>
+                            <div class="agent-stat-label">Agents déjà actifs</div>
+                        </div>
+                        <div class="agent-stat">
+                            <div class="agent-stat-number">0</div>
+                            <div class="agent-stat-label">Frais d'inscription</div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-bottom: 30px;">Rejoignez notre réseau d'agents et commencez à gagner dès aujourd'hui. Il vous suffit d'un smartphone et de la volonté de réussir.</p>
+                    
+                    <a href="#" class="cta-button" style="margin-right: 15px;">
+                        <i class="fas fa-user-plus"></i> Devenir Agent
+                    </a>
+                    <a href="#" class="cta-button secondary">
+                        <i class="fas fa-info-circle"></i> En savoir plus
+                    </a>
+                </section>
+
+                <!-- API et Marketplace -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h2 class="section-title"><span>APIs</span> & <span>Marketplace</span></h2>
+                    </div>
+                    
+                    <div class="api-section">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 20px;">APIs de Paiement pour Sites Marchands</h3>
+                        <p style="margin-bottom: 30px;">Intégrez nos APIs de paiement et acceptez des règlements du monde entier sur votre site e-commerce.</p>
+                        
+                        <div class="api-grid">
+                            <div class="api-card">
+                                <i class="fas fa-globe" style="font-size: 2rem; color: var(--secondary); margin-bottom: 15px;"></i>
+                                <h4>Paiements Internationaux</h4>
+                                <p>Acceptez les paiements en euros, dollars et autres devises depuis n'importe quel pays.</p>
+                            </div>
+                            
+                            <div class="api-card">
+                                <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 15px;"></i>
+                                <h4>Sécurité Maximale</h4>
+                                <p>Transactions sécurisées avec cryptage de bout en bout et conformité aux normes internationales.</p>
+                            </div>
+                            
+                            <div class="api-card">
+                                <i class="fas fa-bolt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 15px;"></i>
+                                <h4>Intégration Facile</h4>
+                                <p>Documentation complète et SDK pour une intégration rapide sur votre plateforme.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 50px; padding: 40px; background: var(--light); border-radius: 25px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--primary);">Espace Vendeur Gratuit</h3>
+                        <p style="margin-bottom: 20px;">Vous avez des produits ou services à vendre ? KrediNou vous offre un espace gratuit pour les mettre en ligne et toucher des milliers de clients.</p>
+                        
+                        <div class="sub-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <div class="sub-service-item">
+                                <i class="fas fa-tshirt sub-service-icon"></i>
+                                <div>Vêtements & Mode</div>
+                            </div>
+                            <div class="sub-service-item">
+                                <i class="fas fa-laptop sub-service-icon"></i>
+                                <div>Électronique</div>
+                            </div>
+                            <div class="sub-service-item">
+                                <i class="fas fa-couch sub-service-icon"></i>
+                                <div>Maison & Déco</div>
+                            </div>
+                            <div class="sub-service-item">
+                                <i class="fas fa-gem sub-service-icon"></i>
+                                <div>Services & Conseils</div>
+                            </div>
+                            <div class="sub-service-item">
+                                <i class="fas fa-car sub-service-icon"></i>
+                                <div>Automobile</div>
+                            </div>
+                            <div class="sub-service-item">
+                                <i class="fas fa-heart sub-service-icon"></i>
+                                <div>Beauté & Santé</div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <a href="#" class="cta-button secondary" style="background: var(--primary); color: white; border: none;">
+                                <i class="fas fa-store"></i> Ouvrir ma boutique gratuite
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Appel aux Partenariats -->
+                <div class="feature-highlight" style="background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%); margin-top: 30px;">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h2 class="feature-title">Collaborations Gagnant-Gagnant</h2>
+                        <p class="feature-text">Nous recherchons activement des chauffeurs, des propriétaires de restaurants, des agents commerciaux et des partenaires technologiques pour grandir ensemble. Rejoignez l'écosystème KrediNou dès aujourd'hui !</p>
+                        
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                            <a href="#" class="cta-button secondary" style="background: white; color: var(--accent); border: none;">
+                                <i class="fas fa-car"></i> Devenir Chauffeur
+                            </a>
+                            <a href="#" class="cta-button secondary" style="background: white; color: var(--accent); border: none;">
+                                <i class="fas fa-utensils"></i> Ajouter mon Restaurant
+                            </a>
+                            <a href="#" class="cta-button secondary" style="background: white; color: var(--accent); border: none;">
+                                <i class="fas fa-user-tie"></i> Devenir Agent
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action Final -->
+                <div class="feature-highlight" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); margin-top: 30px;">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h2 class="feature-title">Rejoignez la Révolution KrediNou</h2>
+                        <p class="feature-text">Plus de 50 000 utilisateurs nous font déjà confiance. Téléchargez l'application dès maintenant et découvrez un monde de services à portée de main.</p>
+                        
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <a href="#" class="cta-button secondary" style="background: transparent; color: white;">
+                                <i class="fab fa-google-play"></i> Google Play
+                            </a>
+                            <a href="#" class="cta-button secondary" style="background: transparent; color: white;">
+                                <i class="fab fa-apple"></i> App Store
+                            </a>
+                            <a href="#" class="cta-button secondary" style="background: transparent; color: white;">
+                                <i class="fas fa-globe"></i> Version Web
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partage final -->
+                <div class="share-section" style="margin-top: 50px;">
+                    <div class="share-title">
+                        <i class="fas fa-hands-helping"></i> Faites connaître KrediNou autour de vous
+                    </div>
+                    <p style="margin-bottom: 25px; color: var(--gray);">Partagez cette innovation avec vos amis, votre famille et vos collègues</p>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="copyArticleLink()" data-tooltip="Copier le lien">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    KrediNou<span>.com</span>
+                </div>
+                
+                <p style="opacity: 0.85; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+                    La plateforme multi-services tout-en-un qui révolutionne le quotidien des Africains. Finances, prêts hypothécaires, transfert d'argent, KrediFoods, KrediTaxi, streaming, gaming, APIs, marketplace et opportunités d'emploi.
+                </p>
+                
+                <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 40px;">
+                    <a href="#" style="color: white; text-decoration: none;">KrediFoods</a>
+                    <a href="#" style="color: white; text-decoration: none;">KrediTaxi</a>
+                    <a href="#" style="color: white; text-decoration: none;">Prêts Hypothécaires</a>
+                    <a href="#" style="color: white; text-decoration: none;">API Paiement</a>
+                    <a href="#" style="color: white; text-decoration: none;">Devenir Agent</a>
+                    <a href="#" style="color: white; text-decoration: none;">Espace Vendeur</a>
+                </div>
+                
+                <div class="share-section" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); max-width: 800px; margin: 0 auto;">
+                    <div class="share-title" style="color: white;">
+                        <i class="fas fa-share-alt"></i> Invitez vos amis à rejoindre KrediNou
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareOnTwitter()" data-tooltip="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareOnLinkedIn()" data-tooltip="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()" data-tooltip="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 60px; opacity: 0.6; font-size: 0.95rem;">
+                    © 2024 KrediNou.com - Tous droits réservés.<br>
+                    La Super-App qui connecte l'Afrique aux services essentiels.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        const articleUrl = window.location.href;
+        const articleTitle = "KrediNou.com - La Plateforme Multi-Services Tout-en-Un";
+        const articleDescription = "Découvrez KrediNou.com : transfert d'argent, prêts hypothécaires à taux fixe, KrediFoods (livraison repas), KrediTaxi (VTC), streaming, gaming, APIs de paiement, marketplace gratuite et opportunités d'emploi.";
+        
+        // Fonctions de partage
+        function shareOnTwitter() {
+            const text = encodeURIComponent(`${articleTitle} - La Super-App Africaine qui révolutionne les services en ligne`);
+            const url = encodeURIComponent(articleUrl);
+            const hashtags = encodeURIComponent("KrediNou,SuperApp,Afrique,Innovation,Tech,Partenariats");
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = encodeURIComponent(articleUrl);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=600');
+        }
+        
+        function shareOnFacebook() {
+            const url = encodeURIComponent(articleUrl);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent(`${articleTitle}\n\n${articleDescription}\n\nTéléchargez l'application : ${articleUrl}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank', 'width=600,height=600');
+        }
+        
+        function copyArticleLink() {
+            navigator.clipboard.writeText(articleUrl).then(() => {
+                showNotification('Lien copié dans le presse-papier !');
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+                showNotification('Erreur lors de la copie du lien');
+            });
+        }
+        
+        // Notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Animations au scroll
+        function initScrollAnimations() {
+            const cards = document.querySelectorAll('.service-card, .partnership-card, .api-card');
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Configuration initiale
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'all 0.8s ease';
+                observer.observe(section);
+            });
+        }
+        
+        // Tooltips dynamiques
+        function initTooltips() {
+            const shareButtons = document.querySelectorAll('.share-btn');
+            
+            shareButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    const tooltip = this.getAttribute('data-tooltip');
+                    if (tooltip && !this.querySelector('.tooltip-bubble')) {
+                        const bubble = document.createElement('div');
+                        bubble.className = 'tooltip-bubble';
+                        bubble.textContent = tooltip;
+                        bubble.style.position = 'absolute';
+                        bubble.style.left = '120%';
+                        bubble.style.top = '50%';
+                        bubble.style.transform = 'translateY(-50%)';
+                        bubble.style.background = 'var(--dark)';
+                        bubble.style.color = 'white';
+                        bubble.style.padding = '10px 15px';
+                        bubble.style.borderRadius = '8px';
+                        bubble.style.fontSize = '0.9rem';
+                        bubble.style.whiteSpace = 'nowrap';
+                        bubble.style.zIndex = '1001';
+                        bubble.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                        this.appendChild(bubble);
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    const bubble = this.querySelector('.tooltip-bubble');
+                    if (bubble) {
+                        bubble.remove();
+                    }
+                });
+            });
+        }
+        
+        // Simulation d'inscription partenaires
+        function initPartnerButtons() {
+            const partnerButtons = document.querySelectorAll('.partnership-btn, .cta-button');
+            partnerButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (btn.textContent.includes('Devenir chauffeur')) {
+                        showNotification('Formulaire inscription chauffeur - Ouverture prochaine !');
+                    } else if (btn.textContent.includes('Réjoindre KrediFoods')) {
+                        showNotification('Formulaire partenariat restaurant - Bientôt disponible !');
+                    } else if (btn.textContent.includes('Devenir Agent')) {
+                        showNotification('Inscription agent - Formulaire en préparation !');
+                    } else if (btn.textContent.includes('Ouvrir ma boutique')) {
+                        showNotification('Création de boutique gratuite - Prochainement !');
+                    } else if (btn.textContent.includes('Google Play') || btn.textContent.includes('App Store')) {
+                        showNotification('L\'application sera disponible très prochainement !');
+                    }
+                });
+            });
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+            initTooltips();
+            initPartnerButtons();
+            
+            // Masquer la sticky share sur mobile
+            if (window.innerWidth < 768) {
+                document.querySelector('.sticky-share').style.display = 'none';
+            }
+            
+            // Effet de parallaxe sur le header
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const header = document.querySelector('.header');
+                
+                if (header && scrollPosition < 500) {
+                    header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
